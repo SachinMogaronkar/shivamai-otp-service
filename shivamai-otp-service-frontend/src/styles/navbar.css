@@ -1,0 +1,32 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background: #1e293b;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+
+  z-index: 1000;
+}
+
+.navbar a {
+  color: white;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.navbar button {
+  margin-left: auto;
+  padding: 6px 10px;
+  cursor: pointer;
+}

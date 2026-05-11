@@ -1,0 +1,73 @@
+/* ================= TABLE ================= */
+
+.table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+}
+
+/* ================= CELLS ================= */
+
+.table th,
+.table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+/* ================= HEADER ================= */
+
+.table thead {
+  background: #f1f5f9;
+}
+
+.table thead th {
+  font-weight: 600;
+  color: #6b7280;
+}
+
+/* ================= ROW HOVER ================= */
+
+.table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ================= BUTTON ================= */
+
+.table button {
+  padding: 5px 10px;
+}
+
+/* ================= PAYLOAD BOX ================= */
+
+.payload-box {
+  max-width: 350px;
+  max-height: 200px;
+  overflow: auto;
+  background: #f4f4f4;
+  padding: 10px;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+/* ================= TABLE CONTAINER ================= */
+
+.table-container {
+  max-height: 420px;
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  scroll-behavior: smooth;
+}
+
+/* ================= STICKY HEADER ================= */
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  background: #f1f5f9;
+  z-index: 2;
+
+  /* 🔥 THIS FIXES VISUAL BUG */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}

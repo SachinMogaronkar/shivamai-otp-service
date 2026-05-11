@@ -1,0 +1,59 @@
+.form-container {
+  width: 320px;
+  margin: 80px auto;
+  padding: 24px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 10px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background: #1e40af;
+}
+
+/* 🔥 NEW PART */
+.auth-switch {
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.auth-switch a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+.result-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: #eef2ff;
+  border-radius: 6px;
+  word-break: break-all;
+}

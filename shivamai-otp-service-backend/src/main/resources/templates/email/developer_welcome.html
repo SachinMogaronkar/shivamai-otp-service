@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Shivaमै OTP Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            background: white;
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .content {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #888;
+            text-align: center;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <h2>Shivaमै OTP Infrastructure</h2>
+    </div>
+
+    <div class="header">
+        Welcome Developer 🎉
+    </div>
+
+    <div class="content">
+
+        Hello <span class="highlight" th:text="${identifier}">Developer</span>,
+
+        <br><br>
+
+        Your developer account has been successfully approved by the platform administrator.
+
+        <br><br>
+
+        You can now:
+
+        <ul>
+            <li>Create applications</li>
+            <li>Generate API credentials</li>
+            <li>Send OTP requests</li>
+            <li>Verify OTP authentication</li>
+        </ul>
+
+        <br>
+
+        Visit your developer dashboard to start integrating the OTP infrastructure.
+
+        <br><br>
+
+        We’re excited to have you building with the Shivaमै OTP Platform.
+
+    </div>
+
+    <div class="footer">
+        Shivaमै OTP Infrastructure Service
+    </div>
+
+</div>
+
+</body>
+</html>

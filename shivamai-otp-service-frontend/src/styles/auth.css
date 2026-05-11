@@ -1,0 +1,190 @@
+/* ================= WRAPPER ================= */
+
+.auth-wrapper {
+  display: flex;
+  height: 100vh;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ================= LEFT ================= */
+
+.auth-left {
+  flex: 1;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  color: #e2e8f0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.auth-trident {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.auth-logo {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.auth-left h1 {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.auth-left p {
+  margin-top: 2px;
+  color: #94a3b8;
+}
+
+/* ================= RIGHT ================= */
+
+.auth-right {
+  flex: 1;
+  background: #f1f5f9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= CARD ================= */
+
+.auth-card {
+  width: 360px;
+  padding: 32px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* ================= TOGGLE ================= */
+
+.auth-toggle {
+  display: flex;
+  background: #e2e8f0;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.auth-toggle button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  font-weight: 600;
+  border-radius: 8px;
+  color: #475569;
+
+  transition: all 0.25s ease;
+}
+
+/* ACTIVE TAB */
+.auth-toggle button.active {
+  background: #2563eb;
+  color: white;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+/* ================= TITLE ================= */
+
+.auth-card h2 {
+  margin-bottom: 18px;
+  font-size: 22px;
+}
+
+/* ================= INPUT ================= */
+
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* ================= SUBMIT BUTTON ================= */
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+
+  background: #2563eb;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.submit-btn:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+
+/* ================= ERROR ================= */
+
+.error-box {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+/* ================= SPINNER ================= */
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================= DISABLED ================= */
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .auth-wrapper {
+    flex-direction: column;
+  }
+
+  .auth-left {
+    display: none;
+  }
+}

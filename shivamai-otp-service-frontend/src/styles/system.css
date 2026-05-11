@@ -1,0 +1,71 @@
+/* ================= CARD ================= */
+
+.system-card {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+}
+
+/* ================= HEADER ================= */
+
+.system-card h3 {
+  margin-bottom: 10px;
+}
+
+/* ================= MAIN STATUS ================= */
+
+.system-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* COLORS */
+.status-dot.operational {
+  background: #22c55e;
+}
+
+.status-dot.degraded {
+  background: #f59e0b;
+}
+
+.status-dot.down {
+  background: #ef4444;
+}
+
+/* ================= COMPONENT LIST ================= */
+
+.system-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.system-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+/* TEXT COLORS */
+
+.status-text.operational {
+  color: #16a34a;
+}
+
+.status-text.degraded {
+  color: #d97706;
+}
+
+.status-text.down {
+  color: #dc2626;
+}
