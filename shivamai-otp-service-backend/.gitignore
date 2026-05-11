@@ -84,3 +84,5 @@ docker-data/
 # ======================================
 
 !.mvn/wrapper/maven-wrapper.jar
+
+.env.prod.local
