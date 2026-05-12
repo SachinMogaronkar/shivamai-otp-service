@@ -40,8 +40,7 @@ public class EmailService {
     private final ClassPathResource logo =
             new ClassPathResource("static/images/brand1.png");
 
-    private final ObjectMapper mapper =
-            new ObjectMapper();
+    private final ObjectMapper mapper;
 
     public void send(EmailRequest request) {
 
