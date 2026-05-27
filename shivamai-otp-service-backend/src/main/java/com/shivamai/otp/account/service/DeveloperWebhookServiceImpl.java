@@ -78,7 +78,8 @@ public class DeveloperWebhookServiceImpl
             Long appId,
             int page,
             int size,
-            String sort,
+            String sortBy,
+            String direction,
             String search,
             List<WebhookStatus> statuses,
             List<WebhookEventType> eventTypes,
@@ -99,12 +100,15 @@ public class DeveloperWebhookServiceImpl
                 PageQuery.builder()
                         .page(page)
                         .size(size)
-                        .sortBy("createdAt")
-                        .direction(sort)
+                        .sortBy(sortBy)
+                        .direction(direction)
                         .search(search)
                         .build();
 
-        Pageable pageable = PageableFactory.create(query);
+        Pageable pageable =
+                PageableFactory.create(
+                        query
+                );
 
         Page<WebhookLog> logs =
                 webhookLogRepository.findAll(

@@ -42,26 +42,30 @@ public class ChannelDeliveryRouter {
             OtpDeliveryContext context
     ) {
 
-        OtpChannelType channelType =
-                resolveChannel(
-                        context.getIdentifier()
-                );
+        if (context.getChannelType() == null) {
+
+            throw new IllegalArgumentException(
+                    "Channel type is required"
+            );
+        }
 
         OtpDeliveryChannel channel =
                 channelMap.get(
-                        channelType
+                        context.getChannelType()
                 );
 
         if (channel == null) {
 
             log.error(
                     "No delivery channel configured for type={}",
-                    channelType
+                    context.getChannelType()
             );
 
             return OtpDeliveryResult.builder()
                     .success(false)
-                    .channelUsed(channelType)
+                    .channelUsed(
+                            context.getChannelType()
+                    )
                     .build();
         }
 
@@ -74,69 +78,28 @@ public class ChannelDeliveryRouter {
 
             log.error(
                     "OTP delivery failed through channel={}",
-                    channelType
+                    context.getChannelType()
             );
 
             return OtpDeliveryResult.builder()
                     .success(false)
-                    .channelUsed(channelType)
+                    .channelUsed(
+                            context.getChannelType()
+                    )
                     .build();
         }
 
         log.info(
                 "OTP delivered successfully through channel={}",
-                channelType
+                context.getChannelType()
         );
 
         return OtpDeliveryResult.builder()
                 .success(true)
-                .channelUsed(channelType)
+                .channelUsed(
+                        context.getChannelType()
+                )
                 .build();
-    }
-
-    private OtpChannelType resolveChannel(
-            String identifier
-    ) {
-
-        if (identifier == null
-                || identifier.isBlank()) {
-
-            throw new IllegalArgumentException(
-                    "Identifier cannot be null or blank"
-            );
-        }
-
-        if (isEmail(identifier)) {
-
-            return OtpChannelType.EMAIL;
-        }
-
-        if (isPhone(identifier)) {
-
-            return OtpChannelType.SMS;
-        }
-
-        throw new IllegalArgumentException(
-                "Unsupported identifier format"
-        );
-    }
-
-    private boolean isEmail(
-            String identifier
-    ) {
-
-        return identifier.matches(
-                "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
-        );
-    }
-
-    private boolean isPhone(
-            String identifier
-    ) {
-
-        return identifier.matches(
-                "^\\+?[1-9]\\d{9,14}$"
-        );
     }
 
     public void ping() {

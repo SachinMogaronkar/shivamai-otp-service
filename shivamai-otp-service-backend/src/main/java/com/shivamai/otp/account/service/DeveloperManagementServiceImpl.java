@@ -29,7 +29,6 @@ import com.shivamai.otp.webhook.enums.WebhookStatus;
 import com.shivamai.otp.webhook.repository.WebhookLogRepository;
 
 import com.shivamai.otp.webhook.specification.AdminWebhookLogSpecification;
-import com.shivamai.otp.webhook.specification.DeveloperWebhookLogSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,8 +64,7 @@ public class DeveloperManagementServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public Page<DeveloperAccountResponse>
-    getPendingDevelopers(
+    public Page<DeveloperAccountResponse> getPendingDevelopers(
             PageQuery query,
             LocalDateTime fromDate,
             LocalDateTime toDate
@@ -561,6 +559,8 @@ public class DeveloperManagementServiceImpl
 
         return mapApp(updated);
     }
+
+
 
     // =====================================
     // GET WEBHOOK LOGS

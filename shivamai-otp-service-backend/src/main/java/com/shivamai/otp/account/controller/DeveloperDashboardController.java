@@ -247,6 +247,33 @@ public class DeveloperDashboardController {
     }
 
     // =====================================
+    // DELETE APPLICATION
+    // =====================================
+
+    @DeleteMapping("/apps/{appId}")
+    public ApiResponse<Void> deleteApp(
+            @PathVariable
+            Long appId,
+            HttpServletRequest request
+    ) {
+
+        log.info(
+                "Deleting developer application id={}",
+                appId
+        );
+
+        applicationService.deleteApp(
+                appId,
+                request
+        );
+
+        return success(
+                "Application deleted successfully",
+                null
+        );
+    }
+
+    // =====================================
     // GET WEBHOOK LOGS
     // =====================================
 
@@ -294,6 +321,7 @@ public class DeveloperDashboardController {
                         appId,
                         page,
                         size,
+                        sortBy,
                         sort,
                         search,
                         statuses,
@@ -318,35 +346,6 @@ public class DeveloperDashboardController {
         return success(
                 "Developer dashboard metrics fetched successfully",
                 accountService.getMetrics()
-        );
-    }
-
-
-
-    // =====================================
-    // DELETE APPLICATION
-    // =====================================
-
-    @DeleteMapping("/apps/{appId}")
-    public ApiResponse<Void> deleteApp(
-            @PathVariable
-            Long appId,
-            HttpServletRequest request
-    ) {
-
-        log.info(
-                "Deleting developer application id={}",
-                appId
-        );
-
-        applicationService.deleteApp(
-                appId,
-                request
-        );
-
-        return success(
-                "Application deleted successfully",
-                null
         );
     }
 

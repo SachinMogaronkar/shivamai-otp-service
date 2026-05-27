@@ -629,6 +629,23 @@ public class DeveloperApplicationServiceImpl
 
         appRepository.delete(app);
 
+        try {
+
+            notificationService
+                    .sendApplicationDeletedNotification(
+                            developer.getIdentifier(),
+                            app.getApplicationName()
+                    );
+
+        } catch (Exception e) {
+
+            log.error(
+                    "Application deletion notification failed clientId={}",
+                    app.getClientId(),
+                    e
+            );
+        }
+
         auditService.logDeveloperEvent(
                 app.getClientId(),
                 developer.getIdentifier(),

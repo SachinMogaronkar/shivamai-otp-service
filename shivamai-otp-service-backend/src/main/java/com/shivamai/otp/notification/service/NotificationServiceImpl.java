@@ -9,7 +9,10 @@ import com.shivamai.otp.notification.dto.EmailRequest;
 import com.shivamai.otp.notification.entity.NotificationMetadata;
 import com.shivamai.otp.notification.registry.NotificationRegistry;
 
+import com.shivamai.otp.otp.channel.ChannelDeliveryRouter;
+import com.shivamai.otp.otp.dto.OtpDeliveryContext;
 import com.shivamai.otp.otp.dto.OtpTemplateContent;
+import com.shivamai.otp.otp.enums.OtpChannelType;
 import com.shivamai.otp.otp.enums.OtpPurpose;
 import com.shivamai.otp.otp.resolver.OtpTemplateContentResolver;
 import com.shivamai.otp.otp.util.OtpPurposeFormatter;
@@ -29,6 +32,8 @@ public class NotificationServiceImpl
     private final EmailService emailService;
 
     private final ApiAccessLogger apiAccessLogger;
+
+    private final ChannelDeliveryRouter channelDeliveryRouter;
 
     private final OtpTemplateContentResolver otpTemplateContentResolver;
 
@@ -311,9 +316,12 @@ public class NotificationServiceImpl
                                     )
                     );
 
-                    EmailRequest request =
-                            EmailRequest.builder()
-                                    .to(email)
+                    OtpDeliveryContext deliveryContext =
+                            OtpDeliveryContext.builder()
+                                    .identifier(email)
+                                    .channelType(
+                                            OtpChannelType.EMAIL
+                                    )
                                     .subject(
                                             content.getSubject()
                                     )
@@ -323,8 +331,8 @@ public class NotificationServiceImpl
                                     .context(context)
                                     .build();
 
-                    emailService.send(
-                            request
+                    channelDeliveryRouter.deliver(
+                            deliveryContext
                     );
                 }
         );
@@ -591,15 +599,24 @@ public class NotificationServiceImpl
                             email
                     );
 
-                    EmailRequest request =
-                            EmailRequest.builder()
-                                    .to(email)
-                                    .subject(metadata.subject())
-                                    .template(metadata.template())
+                    OtpDeliveryContext deliveryContext =
+                            OtpDeliveryContext.builder()
+                                    .identifier(email)
+                                    .channelType(
+                                            OtpChannelType.EMAIL
+                                    )
+                                    .subject(
+                                            metadata.subject()
+                                    )
+                                    .template(
+                                            metadata.template()
+                                    )
                                     .context(context)
                                     .build();
 
-                    emailService.send(request);
+                    channelDeliveryRouter.deliver(
+                            deliveryContext
+                    );
                 }
         );
     }

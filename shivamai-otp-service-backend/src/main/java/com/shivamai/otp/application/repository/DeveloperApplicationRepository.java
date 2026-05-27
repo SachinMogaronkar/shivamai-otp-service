@@ -1,11 +1,8 @@
 package com.shivamai.otp.application.repository;
 
-import com.shivamai.otp.application.dto.response.DeveloperApplicationSummaryResponse;
 import com.shivamai.otp.application.entity.DeveloperApplication;
 
 import com.shivamai.otp.application.enums.ApplicationStatus;
-import com.shivamai.otp.common.pagination.PageQuery;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

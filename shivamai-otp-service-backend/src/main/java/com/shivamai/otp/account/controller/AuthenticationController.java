@@ -13,8 +13,6 @@ import com.shivamai.otp.common.response.ApiResponse;
 import com.shivamai.otp.otp.dto.request.OtpResendDTO;
 import com.shivamai.otp.otp.dto.response.OtpDeliveryResponse;
 
-import com.shivamai.otp.account.enums.AccountRole;
-
 import com.shivamai.otp.account.service.AuthenticationService;
 
 import com.shivamai.otp.otp.service.OtpService;

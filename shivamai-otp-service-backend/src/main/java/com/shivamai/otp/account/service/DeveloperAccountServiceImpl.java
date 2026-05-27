@@ -60,7 +60,6 @@ public class DeveloperAccountServiceImpl
 
     private final AuditService auditService;
 
-
     private final JwtUtil jwtUtil;
 
     private final JwtBlacklistService jwtBlacklistService;
