@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Verification Code</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            background:#f1f5f9;
+
+            padding:32px 14px;
+
+            font-family:
+                    Inter,
+                    Arial,
+                    sans-serif;
+
+            color:#0f172a;
+        }
+
+        .wrapper{
+
+            max-width:580px;
+
+            margin:auto;
+        }
+
+        .container{
+
+            background:#ffffff;
+
+            border-radius:28px;
+
+            overflow:hidden;
+
+            border:1px solid #e2e8f0;
+
+            box-shadow:
+                    0 12px 40px rgba(15,23,42,0.06);
+        }
+
+        .top{
+
+            padding:42px 38px 30px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #0f172a 0%,
+                            #111827 100%
+                    );
+
+            color:#ffffff;
+        }
+
+        .brand{
+
+            font-size:14px;
+
+            font-weight:500;
+
+            letter-spacing:0.3px;
+
+            color:#cbd5e1;
+        }
+
+        .hero-title{
+
+            margin-top:14px;
+
+            font-size:34px;
+
+            font-weight:700;
+
+            line-height:1.15;
+
+            letter-spacing:-0.03em;
+
+            color:#ffffff;
+        }
+
+        .top-subtitle{
+
+            margin-top:18px;
+
+            max-width:420px;
+
+            font-size:15px;
+
+            line-height:1.8;
+
+            color:#cbd5e1;
+        }
+
+        .content{
+
+            padding:40px 38px 42px;
+        }
+
+        .greeting{
+
+            font-size:18px;
+
+            font-weight:600;
+
+            color:#0f172a;
+        }
+
+        .description{
+
+            margin-top:16px;
+
+            font-size:15px;
+
+            line-height:1.9;
+
+            color:#475569;
+        }
+
+        .otp-section{
+
+            margin-top:34px;
+        }
+
+        .otp-label{
+
+            font-size:11px;
+
+            font-weight:700;
+
+            letter-spacing:2px;
+
+            color:#94a3b8;
+
+            margin-bottom:14px;
+        }
+
+        .otp-box{
+
+            background:
+                    linear-gradient(
+                            180deg,
+                            #f8fafc 0%,
+                            #f1f5f9 100%
+                    );
+
+            border:1px solid #dbeafe;
+
+            border-radius:22px;
+
+            text-align:center;
+
+            padding:30px 20px;
+        }
+
+        .otp{
+
+            font-size:40px;
+
+            font-weight:900;
+
+            letter-spacing:10px;
+
+            line-height:1;
+
+            color:#0f172a;
+        }
+
+        .expiry{
+
+            margin-top:18px;
+
+            font-size:14px;
+
+            color:#64748b;
+
+            line-height:1.8;
+        }
+
+        .expiry strong{
+
+            color:#2563eb;
+        }
+
+        .meta{
+
+            margin-top:30px;
+
+            padding:18px 20px;
+
+            border-radius:16px;
+
+            background:#f8fafc;
+
+            border:1px solid #e2e8f0;
+
+            font-size:14px;
+
+            line-height:1.9;
+
+            color:#475569;
+        }
+
+        .meta strong{
+
+            color:#0f172a;
+        }
+
+        .security{
+
+            margin-top:28px;
+
+            padding:22px 22px;
+
+            border-radius:18px;
+
+            background:#fff7ed;
+
+            border:1px solid #fed7aa;
+        }
+
+        .security-title{
+
+            font-size:14px;
+
+            font-weight:700;
+
+            color:#9a3412;
+
+            margin-bottom:10px;
+        }
+
+        .security-text{
+
+            font-size:14px;
+
+            line-height:1.9;
+
+            color:#7c2d12;
+        }
+
+        .footer{
+
+            margin-top:26px;
+
+            text-align:center;
+
+            font-size:13px;
+
+            line-height:1.8;
+
+            color:#94a3b8;
+        }
+
+        .footer strong{
+
+            color:#2563eb;
+        }
+
+        @media screen and (max-width:600px){
+
+            body{
+                padding:14px 8px;
+            }
+
+            .top{
+                padding:34px 24px 26px;
+            }
+
+            .content{
+                padding:32px 24px 34px;
+            }
+
+            .hero-title{
+                font-size:28px;
+            }
+
+            .otp{
+                font-size:38px;
+                letter-spacing:4px;
+            }
+
+            .description{
+                font-size:14px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="container">
+
+        <div class="top">
+
+            <div class="brand">
+
+                Secured by ShivaMai Projects
+
+            </div>
+
+            <div class="hero-title"
+                 th:text="${title}">
+
+                Complete your sign in
+
+            </div>
+
+            <div class="top-subtitle"
+                 th:text="${subtitle}">
+
+                Use the verification code below to continue securely.
+
+            </div>
+
+        </div>
+
+        <div class="content">
+
+            <div class="greeting">
+
+                Hi
+
+                <span th:text="${displayName}">
+                    User
+                </span>,
+
+            </div>
+
+            <div class="description">
+
+                Use the verification code below to continue securely inside
+
+                <strong th:text="${applicationName}">
+                    OTP Test App
+                </strong>.
+
+            </div>
+
+            <div class="otp-section">
+
+                <div class="otp-label">
+
+                    VERIFICATION CODE
+
+                </div>
+
+                <div class="otp-box">
+
+                    <div class="otp"
+                         th:text="${otp}">
+
+                        123456
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="expiry">
+
+                This verification code expires in
+
+                <strong th:text="${expiryMinutes}">
+                    5
+                </strong>
+
+                minutes.
+
+            </div>
+
+            <div class="meta">
+
+                <strong>Application:</strong>
+
+                <span th:text="${applicationName}">
+                    OTP Test App
+                </span>
+
+                <br>
+
+                <strong>Purpose:</strong>
+
+                <span th:text="${purpose}">
+                    Sign In
+                </span>
+
+                <br>
+
+                <strong>Requested:</strong>
+
+                <span th:text="${requestTime}">
+                    Just now
+                </span>
+
+            </div>
+
+            <div class="security">
+
+                <div class="security-title">
+
+                    Security Notice
+
+                </div>
+
+                <div class="security-text">
+
+                    Never share this verification code with anyone.
+
+                    <br><br>
+
+                    If you did not initiate this request for
+
+                    <strong th:text="${applicationName}">
+                        OTP Test App
+                    </strong>,
+
+                    you can safely ignore this email.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        Powered securely by
+
+        <strong>
+            ShivaMai Projects
+        </strong>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

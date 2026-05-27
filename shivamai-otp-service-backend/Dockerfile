@@ -6,17 +6,32 @@ FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
-# Copy pom first for dependency caching
+# =========================================
+# COPY MAVEN FILES
+# =========================================
+
 COPY pom.xml .
+COPY mvnw .
+COPY .mvn .mvn
 
-# Download dependencies
-RUN mvn dependency:go-offline
+# =========================================
+# DOWNLOAD DEPENDENCIES
+# =========================================
 
-# Copy source code
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline
+
+# =========================================
+# COPY SOURCE CODE
+# =========================================
+
 COPY src ./src
 
-# Build application
-RUN mvn clean package -DskipTests
+# =========================================
+# BUILD APPLICATION
+# =========================================
+
+RUN ./mvnw clean package -DskipTests
 
 # =========================================
 # STAGE 2 — RUNTIME IMAGE
@@ -26,11 +41,20 @@ FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
-# Copy built jar from build stage
+# =========================================
+# COPY BUILT JAR
+# =========================================
+
 COPY --from=build /app/target/shivamai-otp-service-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose application port
+# =========================================
+# EXPOSE APPLICATION PORT
+# =========================================
+
 EXPOSE 8080
 
-# Start application
+# =========================================
+# START APPLICATION
+# =========================================
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
