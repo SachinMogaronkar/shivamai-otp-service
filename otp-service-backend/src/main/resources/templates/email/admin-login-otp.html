@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administrator Login Verification</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            background:#f1f5f9;
+
+            padding:32px 14px;
+
+            font-family:
+                    Inter,
+                    Arial,
+                    sans-serif;
+
+            color:#0f172a;
+        }
+
+        .wrapper{
+
+            max-width:640px;
+
+            margin:auto;
+        }
+
+        .container{
+
+            background:#ffffff;
+
+            border-radius:28px;
+
+            overflow:hidden;
+
+            border:1px solid #e2e8f0;
+
+            box-shadow:
+                    0 12px 40px rgba(15,23,42,0.08);
+        }
+
+        .hero{
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #020617 0%,
+                            #0f172a 45%,
+                            #1e293b 100%
+                    );
+
+            padding:42px 38px 36px;
+
+            color:#ffffff;
+        }
+
+        .brand{
+
+            font-size:14px;
+
+            font-weight:600;
+
+            letter-spacing:0.4px;
+
+            color:#cbd5e1;
+        }
+
+        .hero-title{
+
+            margin-top:18px;
+
+            font-size:38px;
+
+            font-weight:700;
+
+            line-height:1.12;
+
+            letter-spacing:-0.03em;
+
+            color:#ffffff;
+        }
+
+        .hero-subtitle{
+
+            margin-top:18px;
+
+            max-width:500px;
+
+            font-size:15px;
+
+            line-height:1.9;
+
+            color:#cbd5e1;
+        }
+
+        .content{
+
+            padding:40px 38px 42px;
+        }
+
+        .badge{
+
+            display:inline-block;
+
+            padding:8px 16px;
+
+            background:#f8fafc;
+
+            color:#0f172a;
+
+            border:1px solid #cbd5e1;
+
+            border-radius:999px;
+
+            font-size:12px;
+
+            font-weight:700;
+
+            letter-spacing:1.5px;
+
+            margin-bottom:28px;
+        }
+
+        .title{
+
+            font-size:34px;
+
+            font-weight:700;
+
+            color:#0f172a;
+
+            line-height:1.25;
+
+            letter-spacing:-0.02em;
+        }
+
+        .subtitle{
+
+            margin-top:18px;
+
+            color:#475569;
+
+            font-size:15px;
+
+            line-height:1.95;
+
+            max-width:520px;
+        }
+
+        .otp-section{
+
+            margin-top:38px;
+
+            text-align:center;
+        }
+
+        .otp-label{
+
+            font-size:11px;
+
+            font-weight:700;
+
+            letter-spacing:2px;
+
+            color:#64748b;
+
+            margin-bottom:16px;
+        }
+
+        .otp-box{
+
+            background:
+                    linear-gradient(
+                            180deg,
+                            #f8fafc 0%,
+                            #e2e8f0 100%
+                    );
+
+            border:1px solid #cbd5e1;
+
+            border-radius:24px;
+
+            padding:30px 20px;
+        }
+
+        .otp{
+
+            font-size:54px;
+
+            font-weight:700;
+
+            letter-spacing:10px;
+
+            line-height:1;
+
+            color:#020617;
+        }
+
+        .expiry{
+
+            margin-top:22px;
+
+            color:#64748b;
+
+            font-size:15px;
+
+            line-height:1.8;
+        }
+
+        .security-card{
+
+            margin-top:34px;
+
+            background:#f8fafc;
+
+            border:1px solid #cbd5e1;
+
+            border-radius:20px;
+
+            padding:24px;
+        }
+
+        .security-title{
+
+            font-size:14px;
+
+            font-weight:700;
+
+            color:#0f172a;
+
+            margin-bottom:14px;
+        }
+
+        .security-text{
+
+            font-size:14px;
+
+            line-height:1.95;
+
+            color:#475569;
+        }
+
+        .alert-card{
+
+            margin-top:26px;
+
+            background:#fff7ed;
+
+            border:1px solid #fdba74;
+
+            border-radius:20px;
+
+            padding:22px;
+        }
+
+        .alert-title{
+
+            font-size:14px;
+
+            font-weight:700;
+
+            color:#c2410c;
+
+            margin-bottom:12px;
+        }
+
+        .alert-text{
+
+            font-size:14px;
+
+            line-height:1.9;
+
+            color:#9a3412;
+        }
+
+        .footer{
+
+            margin-top:26px;
+
+            text-align:center;
+
+            font-size:13px;
+
+            line-height:1.8;
+
+            color:#94a3b8;
+        }
+
+        .footer strong{
+
+            color:#0f172a;
+        }
+
+        @media screen and (max-width:600px){
+
+            body{
+                padding:14px 8px;
+            }
+
+            .hero{
+                padding:34px 24px 28px;
+            }
+
+            .content{
+                padding:32px 24px 34px;
+            }
+
+            .hero-title{
+                font-size:31px;
+            }
+
+            .otp{
+                font-size:40px;
+                letter-spacing:6px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="container">
+
+        <div class="hero">
+
+            <div class="brand">
+
+                ShivaMai Administrative Infrastructure
+
+            </div>
+
+            <div class="hero-title">
+
+                Administrator login verification
+
+            </div>
+
+            <div class="hero-subtitle">
+
+                A privileged authentication request was initiated for an administrative infrastructure environment within the ShivaMai OTP platform.
+
+            </div>
+
+        </div>
+
+        <div class="content">
+
+            <div class="badge">
+
+                PRIVILEGED ACCESS AUTHENTICATION
+
+            </div>
+
+            <div class="title">
+
+                Verify administrator access
+
+            </div>
+
+            <div class="subtitle">
+
+                Use the one-time password below to continue secure administrator authentication and access protected platform operations.
+
+            </div>
+
+            <div class="otp-section">
+
+                <div class="otp-label">
+
+                    ONE-TIME PASSWORD
+
+                </div>
+
+                <div class="otp-box">
+
+                    <div class="otp"
+                         th:text="${otp}">
+
+                        123456
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="expiry">
+
+                This administrator verification code expires in
+
+                <strong th:text="${expiryMinutes}">
+                    5
+                </strong>
+
+                minutes.
+
+            </div>
+
+            <div class="security-card">
+
+                <div class="security-title">
+
+                    Administrative Security Notice
+
+                </div>
+
+                <div class="security-text">
+
+                    This authentication request grants access to privileged infrastructure operations, administrative workflows, developer governance systems, and protected platform controls.
+
+                    <br><br>
+
+                    Never share this OTP or expose privileged access credentials through insecure environments.
+
+                </div>
+
+            </div>
+
+            <div class="alert-card">
+
+                <div class="alert-title">
+
+                    Unauthorized Activity Alert
+
+                </div>
+
+                <div class="alert-text">
+
+                    If you did not initiate this administrator login request, secure your account immediately and investigate potential unauthorized access activity.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        Powered securely by
+
+        <strong>
+            ShivaMai Projects
+        </strong>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

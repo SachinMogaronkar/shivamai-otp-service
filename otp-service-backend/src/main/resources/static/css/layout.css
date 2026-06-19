@@ -1,0 +1,93 @@
+:root{
+--bg-main:#020617;
+--card-bg:#0b1a2b;
+--accent:#1ea7fd;
+--accent-glow:#0ea5e9;
+--text-main:#e2e8f0;
+--text-muted:#94a3b8;
+--border:#1e293b;
+}
+
+/* GLOBAL */
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+color:var(--text-main);
+
+background:linear-gradient(
+180deg,
+#020617 0%,
+#020617 60%,
+#030c1a 100%
+);
+}
+
+/* PAGE LAYOUT */
+
+.page-container{
+display:flex;
+flex-direction:column;
+min-height:100vh;
+}
+
+/* NAVBAR */
+
+.navbar-container{
+width:100%;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+/* BODY AREA */
+
+.body-container{
+flex:1 1 auto;      /* critical */
+display:flex;
+justify-content:center;
+padding:60px 20px;
+}
+
+/* HOME PAGE CENTERING */
+
+.auth-layout{
+align-items:center;
+}
+
+/* CONTENT PAGES */
+
+.content-layout{
+align-items:flex-start;
+}
+
+/* CARD */
+
+.auth-card-container{
+width:420px;
+padding:40px;
+border-radius:16px;
+
+background:rgba(10,20,35,0.8);
+
+box-shadow:0 0 40px rgba(30,167,253,0.25);
+
+text-align:center;
+}
+
+/* LOGO */
+
+.auth-logo{
+width:180px;
+margin-bottom:20px;
+}
+
+/* FOOTER */
+
+.footer-container{
+text-align:center;
+padding:30px 20px;
+
+border-top:1px solid rgba(255,255,255,0.05);
+
+color:var(--text-muted);
+font-size:14px;
+}

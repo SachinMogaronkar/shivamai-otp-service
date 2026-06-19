@@ -1,0 +1,15 @@
+target
+.git
+.idea
+.vscode
+node_modules
+
+*.log
+logs
+
+.env
+.env.*
+
+Dockerfile.dev
+docker-compose.yml
+docker-compose.override.yml
