@@ -3,6 +3,7 @@ package com.shivamai.otp.otp.service;
 import com.shivamai.otp.account.enums.AccountRole;
 
 import com.shivamai.otp.otp.dto.request.OtpRequestDTO;
+import com.shivamai.otp.otp.dto.request.OtpResendDTO;
 import com.shivamai.otp.otp.dto.response.OtpDeliveryResponse;
 
 public interface OtpService {
@@ -12,8 +13,7 @@ public interface OtpService {
     );
 
     OtpDeliveryResponse resendOtp(
-            String identifier,
-            Long requestId
+            OtpResendDTO request
     );
 
     void pingRequest();

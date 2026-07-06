@@ -85,6 +85,9 @@ public class DeveloperAccountServiceImpl
         );
 
         return DeveloperProfileResponse.builder()
+                .fullName(
+                        developer.getFullName()
+                )
                 .identifier(
                         developer.getIdentifier()
                 )
@@ -178,7 +181,7 @@ public class DeveloperAccountServiceImpl
                 developer.getPasswordHash()
         )) {
 
-            auditService.logDeveloperEvent(
+            auditService.logAccountEvent(
                     "developer-dashboard",
                     developer.getIdentifier(),
                     "/developer/dashboard/account",
@@ -215,7 +218,7 @@ public class DeveloperAccountServiceImpl
 
             appRepository.delete(app);
 
-            auditService.logDeveloperEvent(
+            auditService.logAccountEvent(
                     app.getClientId(),
                     developer.getIdentifier(),
                     "/developer/dashboard/account",
@@ -231,7 +234,7 @@ public class DeveloperAccountServiceImpl
 
         developerRepository.delete(developer);
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 "developer-dashboard",
                 developer.getIdentifier(),
                 "/developer/dashboard/account",
@@ -281,21 +284,15 @@ public class DeveloperAccountServiceImpl
     private void validateDeveloperAccess(DeveloperAccount developer) {
 
         if (developer.getStatus() == DeveloperAccountStatus.SUSPENDED_BY_ADMIN) {
-
             throw new ForbiddenOperationException("Developer account suspended by admin");
-
         }
 
         if (developer.getStatus() == DeveloperAccountStatus.REVOKED) {
-
             throw new ForbiddenOperationException("Developer account revoked");
-
         }
 
         if (developer.getStatus() != DeveloperAccountStatus.ACTIVE) {
-
             throw new ForbiddenOperationException("Developer account is not active");
-
         }
     }
 }

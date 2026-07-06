@@ -57,6 +57,8 @@ public class OtpVerificationServiceImpl
 
     private final OtpSessionStore cacheManager;
 
+    private final OtpAttemptService otpAttemptService;
+
     private final OtpUsageService otpUsageService;
 
     private final WebHookService webhookService;
@@ -206,13 +208,6 @@ public class OtpVerificationServiceImpl
             );
         }
 
-        int attempts =
-                otpRequest.getAttemptCount() + 1;
-
-        otpRequest.setAttemptCount(
-                attempts
-        );
-
         String hash =
                 OtpHashUtil.hash(
                         otp
@@ -222,19 +217,26 @@ public class OtpVerificationServiceImpl
                 cached.getOtpHash()
         )) {
 
+            int attempts =
+                    otpAttemptService.recordFailedAttempt(
+                            otpRequest
+                    );
+
             if (attempts >= MAX_ATTEMPTS) {
 
-                otpRequest.setStatus(
-                        OtpStatus.BLOCKED
-                );
-
-                repository.save(
+                otpAttemptService.blockOtp(
                         otpRequest
                 );
 
                 cacheManager.removeOtp(
                         identifier,
                         requestId
+                );
+
+                log.warn(
+                        "OTP blocked requestId={} identifier={}",
+                        requestId,
+                        identifier
                 );
 
                 auditService.logSystemEvent(
@@ -258,8 +260,10 @@ public class OtpVerificationServiceImpl
                 );
             }
 
-            repository.save(
-                    otpRequest
+            log.warn(
+                    "Invalid OTP requestId={} identifier={}",
+                    requestId,
+                    identifier
             );
 
             auditService.logSystemEvent(
@@ -315,7 +319,8 @@ public class OtpVerificationServiceImpl
         }
 
         log.info(
-                "OTP verified successfully identifier={}",
+                "OTP verified successfully requestId={} identifier={}",
+                otpRequest.getId(),
                 identifier
         );
 

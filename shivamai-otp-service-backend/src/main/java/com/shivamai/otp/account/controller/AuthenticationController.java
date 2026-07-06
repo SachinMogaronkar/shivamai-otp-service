@@ -92,7 +92,7 @@ public class AuthenticationController {
         return success(
                 "OTP sent",
                 authenticationService
-                        .loginDeveloper(request)
+                        .loginAccount(request)
         );
     }
 
@@ -110,10 +110,7 @@ public class AuthenticationController {
 
         return success(
                 "OTP resent",
-                otpService.resendOtp(
-                        request.getIdentifier(),
-                        request.getRequestId()
-                )
+                otpService.resendOtp(request)
         );
     }
 

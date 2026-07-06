@@ -10,6 +10,7 @@ import com.shivamai.otp.account.dto.response.RegistrationVerificationResponse;
 
 import com.shivamai.otp.account.entity.DeveloperAccount;
 
+import com.shivamai.otp.account.enums.AccountRole;
 import com.shivamai.otp.account.enums.DeveloperAccountStatus;
 
 import com.shivamai.otp.account.repository.DeveloperAccountRepository;
@@ -91,7 +92,7 @@ public class AuthenticationServiceImpl
                 request.getIdentifier()
         )) {
 
-            auditService.logDeveloperEvent(
+            auditService.logAccountEvent(
                     request.getIdentifier(),
                     request.getIdentifier(),
                     "/auth/register",
@@ -106,6 +107,10 @@ public class AuthenticationServiceImpl
 
         DeveloperAccount developer =
                 new DeveloperAccount();
+
+        developer.setFullName(
+                request.getFullName().trim()
+        );
 
         developer.setIdentifier(
                 request.getIdentifier()
@@ -140,15 +145,16 @@ public class AuthenticationServiceImpl
                                 .identifier(
                                         request.getIdentifier()
                                 )
-                                .displayName(
-                                        request.getIdentifier()
+                                .fullName(
+                                        request.getFullName()
                                 )
                                 .applicationName(
-                                        "Shivamai Console"
+                                        resolveApplicationName(developer)
                                 )
                                 .purpose(
                                         OtpPurpose.REGISTRATION
                                 )
+                                .accountRole(developer.getAccountRole())
                                 .build()
                 );
 
@@ -156,7 +162,7 @@ public class AuthenticationServiceImpl
                 otpResponse.getRequestId()
         );
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 savedDeveloper.getIdentifier(),
                 savedDeveloper.getIdentifier(),
                 "/auth/register",
@@ -176,8 +182,11 @@ public class AuthenticationServiceImpl
                 .requestId(
                         otpResponse.getRequestId()
                 )
-                .expirySeconds(
-                        otpResponse.getExpirySeconds()
+                .expiresAt(
+                        otpResponse.getExpiresAt()
+                )
+                .remainingSeconds(
+                        otpResponse.getRemainingSeconds()
                 )
                 .channel(
                         otpResponse.getChannel().name()
@@ -198,7 +207,7 @@ public class AuthenticationServiceImpl
     ) {
 
         DeveloperAccount developer =
-                getDeveloperOrThrow(
+                getAccountOrThrow(
                         request.getIdentifier()
                 );
 
@@ -232,7 +241,7 @@ public class AuthenticationServiceImpl
                 null
         );
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 developer.getIdentifier(),
                 developer.getIdentifier(),
                 "/auth/verify-registration",
@@ -246,6 +255,9 @@ public class AuthenticationServiceImpl
         );
 
         return RegistrationVerificationResponse.builder()
+                .fullName(
+                        developer.getFullName()
+                )
                 .identifier(
                         developer.getIdentifier()
                 )
@@ -260,7 +272,7 @@ public class AuthenticationServiceImpl
     // =====================================
 
     @Override
-    public OtpDeliveryResponse loginDeveloper(
+    public OtpDeliveryResponse loginAccount(
             LoginRequest request
     ) {
 
@@ -270,16 +282,22 @@ public class AuthenticationServiceImpl
         );
 
         DeveloperAccount developer =
-                getDeveloperOrThrow(
+                getAccountOrThrow(
                         request.getIdentifier()
                 );
+//
+        log.info(
+                "Developer loaded -> fullName='{}'",
+                developer.getFullName()
+        );
+
 
         if (!passwordEncoder.matches(
                 request.getPassword(),
                 developer.getPasswordHash()
         )) {
 
-            auditService.logDeveloperEvent(
+            auditService.logAccountEvent(
                     request.getIdentifier(),
                     request.getIdentifier(),
                     "/auth/login",
@@ -296,21 +314,27 @@ public class AuthenticationServiceImpl
                 developer
         );
 
+        OtpPurpose purpose =
+                resolveLoginPurpose(
+                        developer
+                );
+
         OtpDeliveryResponse otpResponse =
                 otpService.requestOtp(
                         OtpRequestDTO.builder()
                                 .identifier(
                                         request.getIdentifier()
                                 )
-                                .displayName(
-                                        developer.getIdentifier()
+                                .fullName(
+                                        developer.getFullName()
                                 )
                                 .applicationName(
-                                        "Shivamai Console"
+                                        resolveApplicationName(developer)
                                 )
                                 .purpose(
-                                        OtpPurpose.LOGIN
+                                        purpose
                                 )
+                                .accountRole(developer.getAccountRole())
                                 .build()
                 );
 
@@ -318,7 +342,7 @@ public class AuthenticationServiceImpl
                 otpResponse.getRequestId()
         );
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 developer.getIdentifier(),
                 developer.getIdentifier(),
                 "/auth/login",
@@ -344,7 +368,7 @@ public class AuthenticationServiceImpl
     ) {
 
         DeveloperAccount developer =
-                getDeveloperOrThrow(
+                getAccountOrThrow(
                         request.getIdentifier()
                 );
 
@@ -375,7 +399,7 @@ public class AuthenticationServiceImpl
                         developer
                 );
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 developer.getIdentifier(),
                 developer.getIdentifier(),
                 "/auth/verify-login",
@@ -461,7 +485,7 @@ public class AuthenticationServiceImpl
 
         SecurityContextHolder.clearContext();
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 identifier,
                 identifier,
                 "/auth/logout",
@@ -479,7 +503,39 @@ public class AuthenticationServiceImpl
     // INTERNAL HELPERS
     // =====================================
 
-    private DeveloperAccount getDeveloperOrThrow(
+    private OtpPurpose resolveLoginPurpose(
+            DeveloperAccount account
+    ) {
+
+        return switch (
+                account.getAccountRole()
+                ) {
+
+            case ADMIN ->
+                    OtpPurpose.ADMIN_LOGIN;
+
+            case DEVELOPER ->
+                    OtpPurpose.DEVELOPER_LOGIN;
+        };
+    }
+
+    private String resolveApplicationName(
+            DeveloperAccount account
+    ) {
+
+        return switch (
+                account.getAccountRole()
+                ) {
+
+            case ADMIN ->
+                    "Shivamai Admin Console";
+
+            case DEVELOPER ->
+                    "Shivamai Developer Console";
+        };
+    }
+
+    private DeveloperAccount getAccountOrThrow(
             String identifier
     ) {
 
@@ -488,7 +544,7 @@ public class AuthenticationServiceImpl
                 )
                 .orElseThrow(
                         () -> new OtpException(
-                                "Developer not found"
+                                "Account not found"
                         )
                 );
     }
@@ -570,7 +626,7 @@ public class AuthenticationServiceImpl
             String reason
     ) {
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 developer.getIdentifier(),
                 developer.getIdentifier(),
                 "/auth/login",

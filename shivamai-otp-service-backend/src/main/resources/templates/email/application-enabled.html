@@ -58,8 +58,9 @@
             background:
                     linear-gradient(
                             135deg,
-                            #052e16 0%,
-                            #166534 100%
+                            #166534 0%,
+                            #16a34a 55%,
+                            #22c55e 100%
                     );
 
             padding:42px 38px 36px;
@@ -82,9 +83,9 @@
 
             margin-top:18px;
 
-            font-size:36px;
+            font-size:42px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.12;
 
@@ -164,9 +165,9 @@
 
         .app-name{
 
-            font-size:28px;
+            font-size:30px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.3;
 
@@ -200,13 +201,16 @@
 
             margin-top:32px;
 
-            padding:24px;
+            padding:22px;
 
-            border-radius:18px;
+            border-radius:20px;
 
-            background:#ecfdf5;
+            background:#f0fdf4;
 
-            border:1px solid #bbf7d0;
+            border:1px solid #86efac;
+
+            box-shadow:
+                    0 2px 8px rgba(15,23,42,0.03);
         }
 
         .success-title{
@@ -262,7 +266,7 @@
             }
 
             .hero-title{
-                font-size:30px;
+                font-size:32px;
             }
 
             .app-name{
@@ -284,19 +288,19 @@
 
             <div class="brand">
 
-                ShivaMai OTP Infrastructure
+                ShivaMai Systems
 
             </div>
 
             <div class="hero-title">
 
-                Application enabled successfully
+                Application Enabled
 
             </div>
 
             <div class="hero-subtitle">
 
-                Your application is now active again and infrastructure services have resumed successfully.
+                Your application has been enabled and is ready to process API requests and OTP operations.
 
             </div>
 
@@ -309,14 +313,13 @@
                 Hi
 
                 <span th:text="${displayName}">
-                    Om
-                </span>,
+                    Sachin</span>,
 
             </div>
 
             <div class="description">
 
-                The following application has been successfully enabled and is now fully operational within the ShivaMai OTP infrastructure platform.
+                The application shown below has been enabled successfully. API requests, OTP processing, and webhook events are now available again.
 
             </div>
 
@@ -324,7 +327,7 @@
 
                 <div class="card-label">
 
-                    ENABLED APPLICATION
+                    APPLICATION ENABLED
 
                 </div>
 
@@ -337,7 +340,7 @@
 
                 <div class="status">
 
-                    Infrastructure Active
+                    Active
 
                 </div>
 
@@ -347,17 +350,17 @@
 
                 <div class="success-title">
 
-                    Services Restored
+                    What's Available
 
                 </div>
 
                 <div class="success-text">
 
-                    OTP delivery, webhook execution, API authentication, and infrastructure services associated with this application are now operational again.
+                    This application can now process OTP requests, authenticate API calls, deliver webhooks, and serve connected integrations.
 
                     <br><br>
 
-                    Existing integrations and connected services may resume functioning normally.
+                    Existing clients can resume normal operation immediately.
 
                 </div>
 
@@ -372,7 +375,7 @@
         Powered securely by
 
         <strong>
-            ShivaMai Projects
+            ShivaMai Systems
         </strong>
 
     </div>

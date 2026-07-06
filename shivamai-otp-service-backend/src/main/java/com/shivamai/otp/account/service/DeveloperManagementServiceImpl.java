@@ -203,12 +203,12 @@ public class DeveloperManagementServiceImpl
 
         notificationService
                 .sendDeveloperApprovedNotification(
-                        updated.getIdentifier()
+                        updated
                 );
 
         notificationService
                 .sendDeveloperWelcomeNotification(
-                        updated.getIdentifier()
+                        updated
                 );
 
         auditService.logAdminEvent(
@@ -261,7 +261,7 @@ public class DeveloperManagementServiceImpl
 
         notificationService
                 .sendDeveloperSuspendedNotification(
-                        updated.getIdentifier()
+                        updated
                 );
 
         auditService.logAdminEvent(
@@ -306,7 +306,7 @@ public class DeveloperManagementServiceImpl
 
         notificationService
                 .sendDeveloperReactivatedNotification(
-                        updated.getIdentifier()
+                        updated
                 );
 
         auditService.logAdminEvent(
@@ -372,7 +372,7 @@ public class DeveloperManagementServiceImpl
         DeveloperAccount updated = developerRepository.save(developer);
 
         notificationService.sendDeveloperRevokedNotification(
-                updated.getIdentifier()
+                updated
         );
 
         auditService.logAdminEvent(
@@ -663,6 +663,9 @@ public class DeveloperManagementServiceImpl
         return DeveloperAccountResponse.builder()
                 .id(
                         developer.getId()
+                )
+                .fullName(
+                        developer.getFullName()
                 )
                 .identifier(
                         developer.getIdentifier()

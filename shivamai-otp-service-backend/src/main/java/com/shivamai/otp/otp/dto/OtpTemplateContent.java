@@ -9,6 +9,8 @@ public class OtpTemplateContent {
 
     private String subject;
 
+    private String template;
+
     private String title;
 
     private String subtitle;

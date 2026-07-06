@@ -1,5 +1,6 @@
 package com.shivamai.otp.notification.service;
 
+import com.shivamai.otp.account.entity.DeveloperAccount;
 import com.shivamai.otp.audit.dto.request.AuditLogRequest;
 import com.shivamai.otp.audit.enums.AuditActorType;
 import com.shivamai.otp.audit.enums.AuditEventType;
@@ -43,66 +44,66 @@ public class NotificationServiceImpl
 
     @Override
     public void sendDeveloperApprovedNotification(
-            String email
+            DeveloperAccount developer
     ) {
 
         sendIdentifierTemplate(
-                email,
+                developer,
                 AuditEventType.DEVELOPER_APPROVED
         );
     }
 
     @Override
     public void sendDeveloperRejectedNotification(
-            String email
+            DeveloperAccount developer
     ) {
 
         sendIdentifierTemplate(
-                email,
+                developer,
                 AuditEventType.DEVELOPER_REJECTED
         );
     }
 
     @Override
     public void sendDeveloperSuspendedNotification(
-            String email
+            DeveloperAccount developer
     ) {
 
         sendIdentifierTemplate(
-                email,
+                developer,
                 AuditEventType.DEVELOPER_SUSPENDED
         );
     }
 
     @Override
     public void sendDeveloperReactivatedNotification(
-            String email
+            DeveloperAccount developer
     ) {
 
         sendIdentifierTemplate(
-                email,
+                developer,
                 AuditEventType.DEVELOPER_REACTIVATED
         );
     }
 
     @Override
     public void sendDeveloperWelcomeNotification(
-            String email
+            DeveloperAccount developer
     ) {
 
         sendIdentifierTemplate(
-                email,
+                developer,
                 AuditEventType.DEVELOPER_WELCOME
         );
     }
 
     @Override
     public void sendDeveloperRevokedNotification(
-            String email
+            DeveloperAccount developer
     ) {
 
         sendIdentifierTemplate(
-                email,
+                developer,
                 AuditEventType.DEVELOPER_REVOKED_BY_ADMIN
         );
     }
@@ -341,12 +342,14 @@ public class NotificationServiceImpl
     @Override
     public void sendDeveloperLoginOtp(
             String email,
+            String fullName,
             String otp,
             int expiryMinutes
     ) {
 
         sendOtpTemplate(
                 email,
+                fullName,
                 otp,
                 expiryMinutes,
                 AuditEventType.DEVELOPER_LOGIN_OTP_SENT
@@ -356,12 +359,14 @@ public class NotificationServiceImpl
     @Override
     public void sendDeveloperRegistrationOtp(
             String email,
+            String fullName,
             String otp,
             int expiryMinutes
     ) {
 
         sendOtpTemplate(
                 email,
+                fullName,
                 otp,
                 expiryMinutes,
                 AuditEventType.DEVELOPER_REGISTRATION_OTP_SENT
@@ -371,12 +376,14 @@ public class NotificationServiceImpl
     @Override
     public void sendAdminLoginOtp(
             String email,
+            String fullName,
             String otp,
             int expiryMinutes
     ) {
 
         sendOtpTemplate(
                 email,
+                fullName,
                 otp,
                 expiryMinutes,
                 AuditEventType.ADMIN_LOGIN_OTP_SENT
@@ -442,7 +449,7 @@ public class NotificationServiceImpl
     // =====================================
 
     private void sendIdentifierTemplate(
-            String email,
+            DeveloperAccount developer,
             AuditEventType eventType
     ) {
 
@@ -450,7 +457,7 @@ public class NotificationServiceImpl
                 metadata(eventType);
 
         executeNotification(
-                email,
+                developer.getIdentifier(),
                 metadata.endpoint(),
                 eventType,
                 () -> {
@@ -460,12 +467,17 @@ public class NotificationServiceImpl
 
                     context.setVariable(
                             "identifier",
-                            email
+                            developer.getIdentifier()
+                    );
+
+                    context.setVariable(
+                            "fullName",
+                            developer.getFullName()
                     );
 
                     EmailRequest request =
                             EmailRequest.builder()
-                                    .to(email)
+                                    .to(developer.getIdentifier())
                                     .subject(metadata.subject())
                                     .template(metadata.template())
                                     .context(context)
@@ -567,6 +579,7 @@ public class NotificationServiceImpl
 
     private void sendOtpTemplate(
             String email,
+            String fullName,
             String otp,
             int expiryMinutes,
             AuditEventType eventType
@@ -597,6 +610,11 @@ public class NotificationServiceImpl
                     context.setVariable(
                             "identifier",
                             email
+                    );
+
+                    context.setVariable(
+                            "fullName",
+                            fullName
                     );
 
                     OtpDeliveryContext deliveryContext =

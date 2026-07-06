@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class DeveloperAccountResponse {
 
     private Long id;
+    private String fullName;
     private String identifier;
     private DeveloperAccountStatus status;
     private LocalDateTime createdAt;

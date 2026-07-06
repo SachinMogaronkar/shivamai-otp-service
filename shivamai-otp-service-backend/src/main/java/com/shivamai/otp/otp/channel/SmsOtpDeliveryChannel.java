@@ -109,7 +109,9 @@ public class SmsOtpDeliveryChannel
 
         return switch (purpose) {
 
-            case LOGIN -> "login";
+            case DEVELOPER_LOGIN -> "Developer login";
+
+            case ADMIN_LOGIN -> "Admin login";
 
             case REGISTRATION -> "registration";
 

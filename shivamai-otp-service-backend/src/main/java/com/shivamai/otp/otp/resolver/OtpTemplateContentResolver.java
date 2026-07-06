@@ -15,76 +15,46 @@ public class OtpTemplateContentResolver {
 
         return switch (purpose) {
 
-            case LOGIN ->
-
-                    OtpTemplateContent.builder()
-                            .subject(
-                                    applicationName + " Sign In Code"
-                            )
-                            .title(
-                                    "Complete your sign in"
-                            )
-                            .subtitle(
-                                    "Use the verification code below to securely sign in to "
-                                            + applicationName + "."
-                            )
+            case DEVELOPER_LOGIN -> OtpTemplateContent.builder()
+                            .subject("Developer Login Verification")
+                            .template("email/developer-login-otp")
+                            .title("Verify developer login")
+                            .subtitle("Secure authentication verification is required before accessing your developer account.")
                             .build();
 
-            case REGISTRATION ->
-
-                    OtpTemplateContent.builder()
-                            .subject(
-                                    "Verify your email for " + applicationName
-                            )
-                            .title(
-                                    "Verify your email"
-                            )
-                            .subtitle(
-                                    "Use the verification code below to complete your registration for "
-                                            + applicationName + "."
-                            )
+            case ADMIN_LOGIN -> OtpTemplateContent.builder()
+                            .subject("Administrator Login Verification")
+                            .template("email/admin-login-otp")
+                            .title("Verify administrator access")
+                            .subtitle("A privileged authentication request was initiated for an administrative environment.")
                             .build();
 
-            case PASSWORD_RESET ->
-
-                    OtpTemplateContent.builder()
-                            .subject(
-                                    applicationName + " Password Reset"
-                            )
-                            .title(
-                                    "Reset your password"
-                            )
-                            .subtitle(
-                                    "Use the verification code below to continue resetting your password."
-                            )
+            case REGISTRATION -> OtpTemplateContent.builder()
+                            .subject("Verify your email for " + applicationName)
+                            .template("email/developer-registration-otp")
+                            .title("Verify your email")
+                            .subtitle("Use the verification code below to complete your registration.")
                             .build();
 
-            case MFA ->
+            case PASSWORD_RESET -> OtpTemplateContent.builder()
+                    .subject(applicationName + " Password Reset")
+                    .template("email/password-reset-otp")
+                    .title("Reset your password")
+                    .subtitle("Use the verification code below to continue resetting your password.")
+                    .build();
 
-                    OtpTemplateContent.builder()
-                            .subject(
-                                    applicationName + " Verification Code"
-                            )
-                            .title(
-                                    "Confirm your identity"
-                            )
-                            .subtitle(
-                                    "Use the verification code below to continue securely."
-                            )
-                            .build();
+            case MFA -> OtpTemplateContent.builder()
+                    .subject(applicationName + " Verification Code")
+                    .template("email/mfa-otp")
+                    .title("Confirm your identity")
+                    .subtitle("Use the verification code below to continue securely.")
+                    .build();
 
-            default ->
-
-                    OtpTemplateContent.builder()
-                            .subject(
-                                    applicationName + " Verification Code"
-                            )
-                            .title(
-                                    "Verification required"
-                            )
-                            .subtitle(
-                                    "Use the verification code below to continue."
-                            )
+            default -> OtpTemplateContent.builder()
+                            .subject(applicationName + " Verification Code")
+                            .template("email/application-otp")
+                            .title("Verification required")
+                            .subtitle("Use the verification code below to continue.")
                             .build();
         };
     }
