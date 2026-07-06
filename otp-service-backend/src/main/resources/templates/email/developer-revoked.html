@@ -54,13 +54,14 @@
         }
 
         .hero{
-
             background:
-                    linear-gradient(
-                            135deg,
-                            #450a0a 0%,
-                            #991b1b 100%
-                    );
+                linear-gradient(
+                    135deg,
+                    #7f1d1d 0%,
+                    #991b1b 55%,
+                    #b91c1c 100%
+                );
+
 
             padding:42px 38px 36px;
 
@@ -82,9 +83,9 @@
 
             margin-top:18px;
 
-            font-size:38px;
+            font-size:42px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.12;
 
@@ -165,13 +166,14 @@
             color:#b91c1c;
 
             margin-bottom:14px;
+
         }
 
         .status-title{
 
-            font-size:28px;
+            font-size: 30px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.3;
 
@@ -185,6 +187,8 @@
             margin-top:12px;
 
             font-size:14px;
+
+            font-weight:800;
 
             color:#7f1d1d;
 
@@ -252,6 +256,39 @@
             margin-bottom:4px;
         }
 
+        .notice-section{
+
+            margin-top:28px;
+
+            background:#fefce8;
+
+            border:1px solid #fde68a;
+
+            border-radius:20px;
+
+            padding:22px;
+        }
+
+        .notice-title{
+
+            font-size:14px;
+
+            font-weight:700;
+
+            color:#a16207;
+
+            margin-bottom:12px;
+        }
+
+        .notice-text{
+
+            font-size:14px;
+
+            line-height:1.8;
+
+            color:#854d0e;
+        }
+
         .footer{
 
             margin-top:26px;
@@ -267,7 +304,7 @@
 
         .footer strong{
 
-            color:#dc2626;
+            color:#991b1b;
         }
 
         @media screen and (max-width:600px){
@@ -307,19 +344,19 @@
 
             <div class="brand">
 
-                ShivaMai OTP Infrastructure
+                ShivaMai Systems
 
             </div>
 
             <div class="hero-title">
 
-                Developer account revoked
+                Developer Access Revoked
 
             </div>
 
             <div class="hero-subtitle">
 
-                Your developer platform access has been permanently revoked following an administrative governance action.
+                Your developer account has been permanently revoked and access is no longer available.
 
             </div>
 
@@ -330,10 +367,8 @@
             <div class="greeting">
 
                 Hello
-
                 <span th:text="${displayName}">
-                    Om
-                </span>,
+                    Sachin</span>,
 
             </div>
 
@@ -355,13 +390,13 @@
 
                 <div class="card-label">
 
-                    ACCOUNT GOVERNANCE STATUS
+                    ACCOUNT STATUS
 
                 </div>
 
                 <div class="status-title">
 
-                    Platform Access Revoked
+                    Access Revoked
 
                 </div>
 
@@ -374,7 +409,7 @@
 
                 <div class="status">
 
-                    Access Permanently Disabled
+                    Access Deactivated
 
                 </div>
 
@@ -384,25 +419,41 @@
 
                 <div class="restriction-title">
 
-                    Restrictions Applied
+                    Access Removed
 
                 </div>
 
                 <ul class="restriction-list">
 
-                    <li>Developer authentication access terminated</li>
+                    <li>Developer dashboard access removed</li>
 
-                    <li>Client credentials and infrastructure operations disabled</li>
+                    <li>Application management unavailable</li>
 
-                    <li>OTP API access blocked</li>
+                    <li>Client credentials deactivated</li>
 
-                    <li>Application lifecycle management restricted</li>
+                    <li>API access disabled</li>
 
-                    <li>Webhook and platform integration operations disabled</li>
+                    <li>Webhook operations disabled</li>
 
-                    <li>Administrative access permanently revoked</li>
+                    <li>Active sessions terminated</li>
 
                 </ul>
+
+            </div>
+
+            <div class="notice-section">
+
+                <div class="notice-title">
+
+                    Need Assistance?
+
+                </div>
+
+                <div class="notice-text">
+
+                    If you believe this action was applied incorrectly, contact the ShivaMai administration team for further review.
+
+                </div>
 
             </div>
 
@@ -415,7 +466,7 @@
         Powered securely by
 
         <strong>
-            ShivaMai Projects
+            ShivaMai Systems
         </strong>
 
     </div>

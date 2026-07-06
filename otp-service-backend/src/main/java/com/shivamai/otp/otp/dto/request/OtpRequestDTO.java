@@ -1,5 +1,6 @@
 package com.shivamai.otp.otp.dto.request;
 
+import com.shivamai.otp.account.enums.AccountRole;
 import com.shivamai.otp.otp.enums.OtpPurpose;
 
 import jakarta.validation.constraints.Email;
@@ -20,9 +21,12 @@ public class OtpRequestDTO {
     @Size(max = 150)
     private String identifier;
 
-    @NotBlank(message = "Display name is required")
+    @NotBlank(message = "Full name is required")
     @Size(max = 120)
-    private String displayName;
+    private String fullName;
+
+    @NotNull(message = "Account role is required")
+    private AccountRole accountRole;
 
     @NotBlank(message = "Application name is required")
     @Size(max = 120)

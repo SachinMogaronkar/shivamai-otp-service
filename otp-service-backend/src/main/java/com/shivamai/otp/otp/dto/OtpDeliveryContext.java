@@ -18,7 +18,7 @@ public class OtpDeliveryContext {
 
     private final String otp;
 
-    private final String displayName;
+    private final String fullName;
 
     private final String applicationName;
 

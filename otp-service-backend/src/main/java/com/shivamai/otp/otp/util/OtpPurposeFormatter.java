@@ -13,8 +13,9 @@ public final class OtpPurposeFormatter {
 
         return switch (purpose) {
 
-            case LOGIN ->
-                    "Sign In";
+            case DEVELOPER_LOGIN -> "Developer Login";
+
+            case ADMIN_LOGIN -> "Admin Login";
 
             case REGISTRATION ->
                     "Registration";

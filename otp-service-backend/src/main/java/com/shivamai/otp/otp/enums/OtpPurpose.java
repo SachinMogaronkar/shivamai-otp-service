@@ -2,7 +2,9 @@ package com.shivamai.otp.otp.enums;
 
 public enum OtpPurpose {
 
-    LOGIN,
+    DEVELOPER_LOGIN,
+
+    ADMIN_LOGIN,
 
     REGISTRATION,
 

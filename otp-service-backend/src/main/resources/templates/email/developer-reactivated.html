@@ -56,11 +56,12 @@
         .hero{
 
             background:
-                    linear-gradient(
-                            135deg,
-                            #1e3a8a 0%,
-                            #2563eb 100%
-                    );
+                linear-gradient(
+                    135deg,
+                    #166534 0%,
+                    #15803d 55%,
+                    #16a34a 100%
+                );
 
             padding:42px 38px 36px;
 
@@ -75,16 +76,16 @@
 
             letter-spacing:0.3px;
 
-            color:#bfdbfe;
+            color:#dcfce7;
         }
 
         .hero-title{
 
             margin-top:18px;
 
-            font-size:36px;
+            font-size:42px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.12;
 
@@ -138,20 +139,16 @@
 
         .account-card{
 
-            margin-top:34px;
+            background:#f0fdf4;
 
-            background:
-                    linear-gradient(
-                            180deg,
-                            #eff6ff 0%,
-                            #dbeafe 100%
-                    );
-
-            border:1px solid #bfdbfe;
+            border:1px solid #86efac;
 
             border-radius:22px;
 
             padding:26px 24px;
+
+            box-shadow:
+                0 2px 8px rgba(15,23,42,0.03);
         }
 
         .card-label{
@@ -162,7 +159,7 @@
 
             letter-spacing:2px;
 
-            color:#2563eb;
+            color:#15803d;
 
             margin-bottom:14px;
         }
@@ -175,7 +172,7 @@
 
             line-height:1.3;
 
-            color:#0f172a;
+            color:#14532d;
 
             letter-spacing:-0.02em;
         }
@@ -186,7 +183,9 @@
 
             font-size:14px;
 
-            color:#475569;
+            font-weight:800;
+
+            color:#166534;
 
             word-break:break-word;
         }
@@ -197,11 +196,11 @@
 
             display:inline-block;
 
-            background:#dbeafe;
+            background:#dcfce7;
 
-            color:#1d4ed8;
+            color:#166534;
 
-            border:1px solid #93c5fd;
+            border:1px solid #86efac;
 
             border-radius:999px;
 
@@ -218,11 +217,14 @@
 
             padding:24px;
 
-            border-radius:18px;
+            border-radius:20px;
 
-            background:#f8fafc;
+            background:#f0fdf4;
 
-            border:1px solid #cbd5e1;
+            border:1px solid #86efac;
+
+            box-shadow:
+                    0 2px 8px rgba(15,23,42,0.03);
         }
 
         .info-title{
@@ -231,7 +233,27 @@
 
             font-weight:700;
 
-            color:#1e40af;
+            color:#15803d;
+
+            margin-bottom:12px;
+        }
+
+        .info-text{
+
+            font-size:14px;
+
+            line-height:1.8;
+
+            color:#166534;
+        }
+
+        .info-title{
+
+            font-size:14px;
+
+            font-weight:700;
+
+            color:#166534;
 
             margin-bottom:12px;
         }
@@ -260,7 +282,7 @@
 
         .footer strong{
 
-            color:#2563eb;
+            color:#15803d;
         }
 
         @media screen and (max-width:600px){
@@ -278,7 +300,7 @@
             }
 
             .hero-title{
-                font-size:30px;
+                font-size:32px;
             }
 
             .account-name{
@@ -300,19 +322,19 @@
 
             <div class="brand">
 
-                ShivaMai OTP Infrastructure
+                ShivaMai Systems
 
             </div>
 
             <div class="hero-title">
 
-                Developer account reactivated
+                Developer Access Restored
 
             </div>
 
             <div class="hero-subtitle">
 
-                Your platform access has been restored successfully and developer infrastructure capabilities are now available again.
+                Your developer account has been reactivated and access is available again.
 
             </div>
 
@@ -322,21 +344,19 @@
 
             <div class="greeting">
 
-                Welcome back,
-
+                Welcome back
                 <span th:text="${displayName}">
-                    Om
-                </span>
+                    Sachin</span>,
 
             </div>
 
             <div class="description">
 
-                Your developer account has been successfully reactivated and authenticated platform access has now been restored.
+                Your developer account has been successfully reactivated.
 
                 <br><br>
 
-                You can resume secure OTP infrastructure operations, application management, and developer authentication workflows within the ShivaMai platform.
+                You can once again access the developer dashboard, manage applications, generate credentials, and use ShivaMai services normally.
 
             </div>
 
@@ -344,14 +364,14 @@
 
                 <div class="card-label">
 
-                    REACTIVATED ACCOUNT
+                    ACCOUNT STATUS
 
                 </div>
 
                 <div class="account-name"
                      th:text="${displayName}">
 
-                    Om
+                    Sachin
 
                 </div>
 
@@ -364,7 +384,7 @@
 
                 <div class="status">
 
-                    Platform Access Restored
+                    Access Restored
 
                 </div>
 
@@ -374,13 +394,13 @@
 
                 <div class="info-title">
 
-                    Infrastructure Access Available
+                    Available Again
 
                 </div>
 
                 <div class="info-text">
 
-                    Developer dashboard access, application lifecycle management, client credential operations, webhook infrastructure, and OTP authentication workflows are now operational again for your account.
+                    You can now access the developer dashboard, manage applications, generate credentials, configure webhooks, and continue using OTP services.
 
                 </div>
 
@@ -395,7 +415,7 @@
         Powered securely by
 
         <strong>
-            ShivaMai Projects
+            ShivaMai Systems
         </strong>
 
     </div>

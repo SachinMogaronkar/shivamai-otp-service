@@ -23,7 +23,7 @@ public interface AuthenticationService {
     // LOGIN
     // =====================================
 
-    OtpDeliveryResponse loginDeveloper(LoginRequest request);
+    OtpDeliveryResponse loginAccount(LoginRequest request);
 
     AuthenticationResponse verifyLoginOtp(OtpVerificationRequest request);
 

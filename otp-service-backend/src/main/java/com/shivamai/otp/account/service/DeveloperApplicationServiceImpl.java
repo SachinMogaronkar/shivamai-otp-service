@@ -149,7 +149,7 @@ public class DeveloperApplicationServiceImpl
         DeveloperApplication savedApp =
                 appRepository.save(app);
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 savedApp.getClientId(),
                 developer.getIdentifier(),
                 "/developer/dashboard/apps",
@@ -366,7 +366,7 @@ public class DeveloperApplicationServiceImpl
         DeveloperApplication updated =
                 appRepository.save(app);
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 updated.getClientId(),
                 developer.getIdentifier(),
                 "/developer/dashboard/apps/" + appId + "/disable",
@@ -444,7 +444,7 @@ public class DeveloperApplicationServiceImpl
         DeveloperApplication updated =
                 appRepository.save(app);
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 updated.getClientId(),
                 developer.getIdentifier(),
                 "/developer/dashboard/apps/" + appId + "/enable",
@@ -544,7 +544,7 @@ public class DeveloperApplicationServiceImpl
                 app.getClientId()
         );
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 app.getClientId(),
                 developer.getIdentifier(),
                 "/developer/dashboard/apps/" + appId + "/rotate-secret",
@@ -646,7 +646,7 @@ public class DeveloperApplicationServiceImpl
             );
         }
 
-        auditService.logDeveloperEvent(
+        auditService.logAccountEvent(
                 app.getClientId(),
                 developer.getIdentifier(),
                 "/developer/dashboard/apps/" + appId + "/delete",

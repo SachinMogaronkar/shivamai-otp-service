@@ -123,8 +123,7 @@ public class OtpController {
 
         OtpDeliveryResponse response =
                 otpService.resendOtp(
-                        request.getIdentifier(),
-                        request.getRequestId()
+                        request
                 );
 
         return success(

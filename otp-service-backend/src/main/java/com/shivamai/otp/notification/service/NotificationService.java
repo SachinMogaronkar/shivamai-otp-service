@@ -1,5 +1,6 @@
 package com.shivamai.otp.notification.service;
 
+import com.shivamai.otp.account.entity.DeveloperAccount;
 import com.shivamai.otp.otp.enums.OtpPurpose;
 
 public interface NotificationService {
@@ -9,27 +10,27 @@ public interface NotificationService {
     // =====================================
 
     void sendDeveloperApprovedNotification(
-            String email
+            DeveloperAccount developer
     );
 
     void sendDeveloperRejectedNotification(
-            String email
+            DeveloperAccount developer
     );
 
     void sendDeveloperSuspendedNotification(
-            String email
+            DeveloperAccount developer
     );
 
     void sendDeveloperReactivatedNotification(
-            String email
+            DeveloperAccount developer
     );
 
     void sendDeveloperRevokedNotification(
-            String email
+            DeveloperAccount developer
     );
 
     void sendDeveloperWelcomeNotification(
-            String email
+            DeveloperAccount developer
     );
 
     // =====================================
@@ -100,18 +101,21 @@ public interface NotificationService {
 
     void sendDeveloperLoginOtp(
             String email,
+            String fullName,
             String otp,
             int expiryMinutes
     );
 
     void sendDeveloperRegistrationOtp(
             String email,
+            String fullName,
             String otp,
             int expiryMinutes
     );
 
     void sendAdminLoginOtp(
             String email,
+            String fullName,
             String otp,
             int expiryMinutes
     );

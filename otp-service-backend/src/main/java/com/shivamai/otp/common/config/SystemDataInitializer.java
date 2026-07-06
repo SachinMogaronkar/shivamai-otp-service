@@ -37,6 +37,10 @@ public class SystemDataInitializer {
             DeveloperAccount admin =
                     new DeveloperAccount();
 
+            admin.setFullName(
+                    "ShivaMai Administrator"
+            );
+
             admin.setIdentifier(
                     "shivamai.otp@gmail.com"
             );

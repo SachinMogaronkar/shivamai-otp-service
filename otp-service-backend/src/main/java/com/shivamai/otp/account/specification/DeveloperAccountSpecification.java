@@ -58,7 +58,7 @@ public class DeveloperAccountSpecification {
 
                                         cb.like(
                                                 cb.lower(
-                                                        root.get("email")
+                                                        root.get("fullName")
                                                 ),
                                                 value
                                         )

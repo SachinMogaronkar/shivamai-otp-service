@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Developer Login Verification</title>
+    <title>Developer Login</title>
 
     <style>
 
@@ -54,13 +54,13 @@
         }
 
         .hero{
-
             background:
-                    linear-gradient(
-                            135deg,
-                            #020617 0%,
-                            #0f172a 100%
-                    );
+                linear-gradient(
+                    135deg,
+                    #1d4ed8 0%,
+                    #2563eb 50%,
+                    #3b82f6 100%
+                );
 
             padding:42px 38px 36px;
 
@@ -82,9 +82,9 @@
 
             margin-top:18px;
 
-            font-size:38px;
+            font-size:42px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.12;
 
@@ -97,13 +97,13 @@
 
             margin-top:18px;
 
-            max-width:470px;
+            max-width:420px;
 
             font-size:15px;
 
             line-height:1.9;
 
-            color:#cbd5e1;
+            color:#dbeafe;
         }
 
         .content{
@@ -148,7 +148,7 @@
 
             color:#64748b;
 
-            margin-bottom:16px;
+            text-align:center;
         }
 
         .otp-box{
@@ -162,24 +162,26 @@
 
             border:1px solid #cbd5e1;
 
-            border-radius:22px;
+            border-radius:24px;
 
-            padding:28px 20px;
+            padding:30px 20px;
 
-            text-align:center;
+            margin-top:12px;
         }
 
         .otp{
 
-            font-size:52px;
+            font-size:54px;
 
             font-weight:700;
 
-            letter-spacing:8px;
+            letter-spacing:10px;
 
             line-height:1;
 
             color:#020617;
+
+            text-align:center;
         }
 
         .expiry{
@@ -193,50 +195,20 @@
             line-height:1.8;
         }
 
-        .meta-section{
-
-            margin-top:32px;
-
-            padding:22px;
-
-            border-radius:18px;
-
-            background:#f8fafc;
-
-            border:1px solid #e2e8f0;
-        }
-
-        .meta-title{
-
-            font-size:14px;
-
-            font-weight:700;
-
-            color:#0f172a;
-
-            margin-bottom:12px;
-        }
-
-        .meta-text{
-
-            font-size:14px;
-
-            line-height:1.95;
-
-            color:#64748b;
-        }
-
         .security-section{
 
             margin-top:28px;
 
             padding:22px;
 
-            border-radius:18px;
+            border-radius:20px;
 
             background:#fff7ed;
 
             border:1px solid #fdba74;
+
+            box-shadow:
+                    0 2px 8px rgba(15,23,42,0.03);
         }
 
         .security-title{
@@ -250,13 +222,29 @@
             margin-bottom:12px;
         }
 
-        .security-text{
+        .security-list{
+
+            margin:0;
+
+            padding-left:20px;
+
+            list-style-type:circle;
+        }
+
+        .security-list li{
+
+            color:#9a3412;
 
             font-size:14px;
 
-            line-height:1.95;
+            line-height:1.8;
 
-            color:#9a3412;
+            margin-bottom:10px;
+        }
+
+        .security-list li:last-child{
+
+            margin-bottom:0;
         }
 
         .footer{
@@ -273,8 +261,7 @@
         }
 
         .footer strong{
-
-            color:#0f172a;
+            color:#1d4ed8;
         }
 
         @media screen and (max-width:600px){
@@ -296,8 +283,8 @@
             }
 
             .otp{
-                font-size:38px;
-                letter-spacing:5px;
+                font-size:40px;
+                letter-spacing:6px;
             }
         }
 
@@ -315,19 +302,19 @@
 
             <div class="brand">
 
-                ShivaMai OTP Infrastructure
+                ShivaMai Systems
 
             </div>
 
             <div class="hero-title">
 
-                Verify developer login
+                Verify Developer Access
 
             </div>
 
             <div class="hero-subtitle">
 
-                Secure authentication verification is required before accessing your developer infrastructure account.
+                Verify your identity to continue securely accessing your developer dashboard.
 
             </div>
 
@@ -337,17 +324,15 @@
 
             <div class="greeting">
 
-                Hi
-
+                Hello
                 <span th:text="${displayName}">
-                    Om
-                </span>,
+                    Sachin</span>,
 
             </div>
 
             <div class="description">
 
-                Use the one-time password below to securely continue your developer account authentication process.
+                Use the verification code below to complete your sign in.
 
             </div>
 
@@ -355,7 +340,7 @@
 
                 <div class="otp-label">
 
-                    ONE-TIME PASSWORD
+                    VERIFICATION CODE
 
                 </div>
 
@@ -384,43 +369,23 @@
 
             </div>
 
-            <div class="meta-section">
-
-                <div class="meta-title">
-
-                    Authentication Activity
-
-                </div>
-
-                <div class="meta-text">
-
-                    A secure developer login verification request was initiated for your ShivaMai infrastructure account.
-
-                </div>
-
-            </div>
-
             <div class="security-section">
 
                 <div class="security-title">
 
-                    Security Notice
+                    Security Reminder
 
                 </div>
 
-                <div class="security-text">
+                <ul class="security-list">
 
-                    Never share this OTP with anyone.
+                    <li>Never share this verification code.</li>
 
-                    <br><br>
+                    <li>ShivaMai Systems will never request your OTP by email, phone, or chat.</li>
 
-                    ShivaMai administrators will never ask for your verification code.
+                    <li>If you did not initiate this sign-in attempt, you can safely ignore this email.</li>
 
-                    <br><br>
-
-                    If you did not initiate this login request, you can safely ignore this email.
-
-                </div>
+                </ul>
 
             </div>
 
@@ -433,7 +398,7 @@
         Powered securely by
 
         <strong>
-            ShivaMai Projects
+            ShivaMai Systems
         </strong>
 
     </div>

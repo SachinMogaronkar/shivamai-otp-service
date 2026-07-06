@@ -58,7 +58,8 @@
             background:
                     linear-gradient(
                             135deg,
-                            #7c2d12 0%,
+                            #9a3412 0%,
+                            #c2410c 55%,
                             #ea580c 100%
                     );
 
@@ -82,9 +83,9 @@
 
             margin-top:18px;
 
-            font-size:36px;
+            font-size:42px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.12;
 
@@ -234,6 +235,42 @@
             color:#991b1b;
         }
 
+        .info-section{
+
+            margin-top:26px;
+
+            padding:22px;
+
+            border-radius:20px;
+
+            background:#fff7ed;
+
+            border:1px solid #fdba74;
+
+            box-shadow:
+                    0 2px 8px rgba(15,23,42,0.03);
+        }
+
+        .info-title{
+
+            font-size:14px;
+
+            font-weight:700;
+
+            color:#c2410c;
+
+            margin-bottom:12px;
+        }
+
+        .info-text{
+
+            font-size:14px;
+
+            line-height:1.9;
+
+            color:#9a3412;
+        }
+
         .footer{
 
             margin-top:26px;
@@ -249,7 +286,7 @@
 
         .footer strong{
 
-            color:#ea580c;
+            color:#c2410c;
         }
 
         @media screen and (max-width:600px){
@@ -267,7 +304,7 @@
             }
 
             .hero-title{
-                font-size:30px;
+                font-size:32px;
             }
 
             .app-name{
@@ -289,19 +326,19 @@
 
             <div class="brand">
 
-                ShivaMai OTP Infrastructure
+                ShivaMai Systems
 
             </div>
 
             <div class="hero-title">
 
-                Application suspended
+                Application Suspended
 
             </div>
 
             <div class="hero-subtitle">
 
-                Administrative restrictions have been applied to your application infrastructure access.
+                Your application has been temporarily suspended. Authentication requests and connected services may be unavailable until access is restored.
 
             </div>
 
@@ -314,7 +351,7 @@
                 Hi
 
                 <span th:text="${displayName}">
-                    Om
+                    Sachin
                 </span>,
 
             </div>
@@ -327,11 +364,15 @@
                     My Application
                 </strong>
 
-                has been temporarily suspended from the ShivaMai OTP infrastructure platform.
+                has been temporarily suspended. Authentication requests and connected services may be unavailable until access is restored.
 
                 <br><br>
 
-                Infrastructure operations and authenticated platform access associated with this application may remain restricted until administrative reactivation.
+                During the suspension period, API authentication, OTP delivery, webhook processing, and other application services may be unavailable.
+
+                <br><br>
+
+                Once the application is reactivated, API authentication, OTP processing, webhook delivery, and connected services will resume automatically.
 
             </div>
 
@@ -339,7 +380,7 @@
 
                 <div class="card-label">
 
-                    SUSPENDED APPLICATION
+                    APPLICATION SUSPENDED
 
                 </div>
 
@@ -352,7 +393,17 @@
 
                 <div class="status">
 
-                    Restricted Access
+                    Temporarily Suspended
+
+                </div>
+
+                <div style="margin-top:12px;color:#9a3412;font-size:12px;">
+
+                    Suspended On:
+
+                    <strong th:text="${requestTime}">
+                        Today, 2:18 PM
+                    </strong>
 
                 </div>
 
@@ -362,17 +413,40 @@
 
                 <div class="warning-title">
 
-                    Infrastructure Restrictions Applied
+                    Service Impact
 
                 </div>
 
-                <div class="warning-text">
+               <div class="warning-text">
 
-                    OTP delivery, webhook execution, API authentication, and related infrastructure services associated with this application may remain unavailable during the suspension period.
+                    During the suspension period:
 
                     <br><br>
 
-                    Existing integrations depending on this application may temporarily stop functioning until reactivation is completed.
+                    • OTP requests will not be processed.<br>
+                    • API authentication may fail.<br>
+                    • Webhook deliveries will be paused.<br>
+                    • Existing integrations may stop working until the application is reactivated.
+
+                </div>
+
+            </div>
+
+            <div class="info-section">
+
+                <div class="info-title">
+
+                    What Happens Next
+
+                </div>
+
+                <div class="info-text">
+
+                    If this suspension was expected, no further action is required.
+
+                    <br><br>
+
+                    If you believe this application was suspended in error or did not authorize this action, contact your platform administrator to review the suspension and request reactivation.
 
                 </div>
 
@@ -387,7 +461,7 @@
         Powered securely by
 
         <strong>
-            ShivaMai Projects
+            ShivaMai Systems
         </strong>
 
     </div>

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class DeveloperProfileResponse {
 
+    private String fullName;
     private String identifier;
     private DeveloperAccountStatus status;
     private LocalDateTime createdAt;

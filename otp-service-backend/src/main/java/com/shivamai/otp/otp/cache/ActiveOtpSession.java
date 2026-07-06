@@ -27,7 +27,7 @@ public class ActiveOtpSession {
 
     private String applicationName;
 
-    private String displayName;
+    private String fullName;
 
     private OtpPurpose purpose;
 }

@@ -8,7 +8,7 @@ import lombok.Getter;
 @Builder
 public class RegistrationVerificationResponse {
 
+    private String fullName;
     private String identifier;
-
     private DeveloperAccountStatus status;
 }

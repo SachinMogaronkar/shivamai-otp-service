@@ -82,9 +82,9 @@
 
             margin-top:18px;
 
-            font-size:38px;
+            font-size:42px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.12;
 
@@ -97,7 +97,7 @@
 
             margin-top:18px;
 
-            max-width:500px;
+            max-width:420px;
 
             font-size:15px;
 
@@ -126,7 +126,7 @@
 
             font-size:15px;
 
-            line-height:1.95;
+            line-height:1.8;
 
             color:#475569;
         }
@@ -137,21 +137,15 @@
         }
 
         .access-card{
-
             margin-top:34px;
 
-            background:
-                    linear-gradient(
-                            180deg,
-                            #f0fdf4 0%,
-                            #dcfce7 100%
-                    );
+            background:#f0fdf4;
 
             border:1px solid #86efac;
 
-            border-radius:22px;
+            border-radius:20px;
 
-            padding:26px 24px;
+            padding:28px;
         }
 
         .card-label{
@@ -168,10 +162,9 @@
         }
 
         .status{
+            font-size:32px;
 
-            font-size:28px;
-
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.3;
 
@@ -227,6 +220,8 @@
 
         .feature-list{
 
+            list-style-type:circle;
+
             padding-left:20px;
 
             color:#475569;
@@ -269,7 +264,7 @@
 
             font-size:14px;
 
-            line-height:1.95;
+            line-height:1.8;
 
             color:#1e3a8a;
         }
@@ -325,19 +320,19 @@
 
             <div class="brand">
 
-                ShivaMai OTP Infrastructure
+                ShivaMai Systems
 
             </div>
 
             <div class="hero-title">
 
-                Developer account approved
+                Developer Account Approved
 
             </div>
 
             <div class="hero-subtitle">
 
-                Your developer access has been approved successfully and platform capabilities are now unlocked for your account.
+                Your account is approved and ready to use.
 
             </div>
 
@@ -347,11 +342,7 @@
 
             <div class="greeting">
 
-                Hi
-
-                <span th:text="${displayName}">
-                    Om
-                </span>,
+                Welcome <span th:text="${displayName}">Sachin</span>,
 
             </div>
 
@@ -361,7 +352,7 @@
 
                 <br><br>
 
-                You can now securely access the ShivaMai OTP infrastructure platform and begin integrating scalable OTP authentication workflows into your applications and services.
+                You can now access the dashboard, create applications, generate client credentials, and start integrating OTP authentication into your products.
 
             </div>
 
@@ -369,19 +360,19 @@
 
                 <div class="card-label">
 
-                    PLATFORM ACCESS
+                    ACCOUNT STATUS
 
                 </div>
 
                 <div class="status">
 
-                    Developer Access Enabled
+                    Active
 
                 </div>
 
                 <div class="pill">
 
-                    Infrastructure Ready
+                    Developer Access Enabled
 
                 </div>
 
@@ -391,23 +382,23 @@
 
                 <div class="feature-title">
 
-                    Available Platform Capabilities
+                    Available Features
 
                 </div>
 
                 <ul class="feature-list">
 
-                    <li>Developer dashboard access</li>
+                    <li>Access the developer dashboard</li>
 
-                    <li>Application lifecycle management</li>
+                    <li>Create and manage applications</li>
 
-                    <li>Client credential generation</li>
+                    <li>Generate client credentials</li>
 
-                    <li>OTP request workflows</li>
+                    <li>Send OTP requests</li>
 
-                    <li>Authentication verification APIs</li>
+                    <li>Verify OTPs request</li>
 
-                    <li>Webhook infrastructure integration</li>
+                    <li>Configure webhooks</li>
 
                 </ul>
 
@@ -417,13 +408,13 @@
 
                 <div class="trust-title">
 
-                    Infrastructure Confidence
+                    Getting Started
 
                 </div>
 
                 <div class="trust-text">
 
-                    ShivaMai infrastructure is designed to support secure, scalable, and production-grade OTP authentication workflows for modern applications and services.
+                    Sign in to your dashboard, create your first application, generate client credentials, and start sending OTP requests.
 
                 </div>
 
@@ -438,7 +429,7 @@
         Powered securely by
 
         <strong>
-            ShivaMai Projects
+            ShivaMai Systems
         </strong>
 
     </div>

@@ -58,15 +58,15 @@
             background:
                     linear-gradient(
                             135deg,
-                            #052e16 0%,
-                            #166534 100%
+                            #166534 0%,
+                            #16a34a 55%,
+                            #22c55e 100%
                     );
 
             padding:42px 38px 36px;
 
             color:#ffffff;
         }
-
         .brand{
 
             font-size:14px;
@@ -76,15 +76,16 @@
             letter-spacing:0.3px;
 
             color:#bbf7d0;
+
         }
 
         .hero-title{
 
             margin-top:18px;
 
-            font-size:36px;
+            font-size:42px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.12;
 
@@ -97,7 +98,7 @@
 
             margin-top:18px;
 
-            max-width:460px;
+            max-width:420px;
 
             font-size:15px;
 
@@ -135,18 +136,16 @@
 
             margin-top:34px;
 
-            background:
-                    linear-gradient(
-                            180deg,
-                            #f8fafc 0%,
-                            #f1f5f9 100%
-                    );
+            background:#f0fdf4;
 
-            border:1px solid #dbeafe;
+            border:1px solid #86efac;
 
             border-radius:22px;
 
             padding:26px 24px;
+
+            box-shadow:
+                    0 2px 8px rgba(15,23,42,0.03);
         }
 
         .card-label{
@@ -157,16 +156,16 @@
 
             letter-spacing:2px;
 
-            color:#94a3b8;
+            color:#15803d;
 
             margin-bottom:14px;
         }
 
         .app-name{
 
-            font-size:28px;
+            font-size:30px;
 
-            font-weight:700;
+            font-weight:800;
 
             line-height:1.3;
 
@@ -202,11 +201,14 @@
 
             padding:22px;
 
-            border-radius:18px;
+            border-radius:20px;
 
-            background:#eff6ff;
+            background:#f0fdf4;
 
-            border:1px solid #bfdbfe;
+            border:1px solid #86efac;
+
+            box-shadow:
+                    0 2px 8px rgba(15,23,42,0.03);
         }
 
         .next-title{
@@ -215,7 +217,7 @@
 
             font-weight:700;
 
-            color:#1d4ed8;
+            color:#15803d;
 
             margin-bottom:12px;
         }
@@ -224,9 +226,9 @@
 
             font-size:14px;
 
-            line-height:1.9;
+            line-height:1.8;
 
-            color:#1e3a8a;
+            color:#166534;
         }
 
         .footer{
@@ -262,7 +264,7 @@
             }
 
             .hero-title{
-                font-size:30px;
+                font-size:32px;
             }
 
             .app-name{
@@ -284,19 +286,19 @@
 
             <div class="brand">
 
-                ShivaMai OTP Infrastructure
+                ShivaMai Systems
 
             </div>
 
             <div class="hero-title">
 
-                Your application is now live
+                Application Ready
 
             </div>
 
             <div class="hero-subtitle">
 
-                Your application has been successfully registered and connected to the ShivaMai OTP infrastructure platform.
+                Your application has been created successfully and is ready for OTP integration.
 
             </div>
 
@@ -307,10 +309,8 @@
             <div class="greeting">
 
                 Hi
-
                 <span th:text="${displayName}">
-                    SM
-                </span>,
+                    Sachin</span>,
 
             </div>
 
@@ -347,7 +347,7 @@
 
                 <div class="next-title">
 
-                    What's next?
+                    Next Steps
 
                 </div>
 
@@ -368,7 +368,7 @@
         Powered securely by
 
         <strong>
-            ShivaMai Projects
+            ShivaMai Systems
         </strong>
 
     </div>

@@ -20,6 +20,7 @@ import com.shivamai.otp.otp.channel.OtpDeliveryResult;
 import com.shivamai.otp.otp.dto.OtpDeliveryContext;
 import com.shivamai.otp.otp.dto.OtpTemplateContent;
 import com.shivamai.otp.otp.dto.request.OtpRequestDTO;
+import com.shivamai.otp.otp.dto.request.OtpResendDTO;
 import com.shivamai.otp.otp.dto.response.OtpDeliveryResponse;
 
 import com.shivamai.otp.otp.entity.OtpRequest;
@@ -118,6 +119,8 @@ public class OtpServiceImpl
         String applicationName =
                 request.getApplicationName();
 
+        log.info("REQUEST OTP STARTED {}", request.getIdentifier());
+
         String cooldownKey =
                 identifier
                         + ":"
@@ -182,7 +185,8 @@ public class OtpServiceImpl
                             deliverOtp(
                                     buildDeliveryContext(
                                             cached.getOtp(),
-                                            existingRequest
+                                            existingRequest,
+                                            cached.getFullName()
                                     )
                             );
 
@@ -251,7 +255,8 @@ public class OtpServiceImpl
                 deliverOtp(
                         buildDeliveryContext(
                                 otp,
-                                otpRequest
+                                otpRequest,
+                                request.getFullName()
                         )
                 );
 
@@ -281,51 +286,26 @@ public class OtpServiceImpl
 
         cacheManager.storeOtp(
                 ActiveOtpSession.builder()
-                        .requestId(
-                                otpRequest.getId()
-                        )
-                        .identifier(
-                                otpRequest.getIdentifier()
-                        )
-                        .otp(
-                                otp
-                        )
-                        .otpHash(
-                                hash
-                        )
-                        .displayName(
-                                otpRequest.getDisplayName()
-                        )
-                        .applicationName(
-                                otpRequest.getApplicationName()
-                        )
-                        .purpose(
-                                otpRequest.getPurpose()
-                        )
-                        .expiryTime(
-                                System.currentTimeMillis()
-                                        + expirySeconds * 1000L
-                        )
+                        .requestId(otpRequest.getId())
+                        .identifier(otpRequest.getIdentifier())
+                        .otp(otp)
+                        .otpHash(hash)
+                        .applicationName(otpRequest.getApplicationName())
+                        .fullName(request.getFullName())
+                        .purpose(otpRequest.getPurpose())
+                        .expiryTime(System.currentTimeMillis() + expirySeconds * 1000L)
                         .build()
         );
 
-        otpRequest.setChannel(
-                result.getChannelUsed()
-        );
+        otpRequest.setChannel(result.getChannelUsed());
 
-        otpRequest.setStatus(
-                OtpStatus.DELIVERED
-        );
+        otpRequest.setStatus(OtpStatus.DELIVERED);
 
-        repository.save(
-                otpRequest
-        );
+        repository.save(otpRequest);
 
         if (metadata.clientId() != null) {
 
-            otpUsageService.recordOtpRequest(
-                    metadata.clientId()
-            );
+            otpUsageService.recordOtpRequest(metadata.clientId());
 
             sendWebhookIfConfigured(
                     metadata.clientId(),
@@ -355,14 +335,13 @@ public class OtpServiceImpl
 
     @Override
     public OtpDeliveryResponse resendOtp(
-            String identifier,
-            Long requestId
+            OtpResendDTO request
     ) {
 
+        Long requestId = request.getRequestId();
+
         OtpRequest otpRequest =
-                repository.findById(
-                                requestId
-                        )
+                repository.findById(requestId)
                         .orElseThrow(
                                 () -> new OtpException(
                                         "OTP request not found"
@@ -370,10 +349,10 @@ public class OtpServiceImpl
                         );
 
         String cooldownKey =
-                identifier + ":" + otpRequest.getPurpose();
+                request.getIdentifier() + ":" + otpRequest.getPurpose();
 
         if (!otpRequest.getIdentifier().equals(
-                identifier
+                request.getIdentifier()
         )) {
 
             throw new OtpException(
@@ -391,23 +370,17 @@ public class OtpServiceImpl
 
         ActiveOtpSession cached =
                 cacheManager.getOtp(
-                        identifier,
+                        request.getIdentifier() ,
                         requestId
                 );
 
         if (cached == null) {
 
-            otpRequest.setStatus(
-                    OtpStatus.EXPIRED
-            );
+            otpRequest.setStatus(OtpStatus.EXPIRED);
 
-            repository.save(
-                    otpRequest
-            );
+            repository.save(otpRequest);
 
-            throw new OtpException(
-                    "OTP expired"
-            );
+            throw new OtpException("OTP expired");
         }
 
         if (!canResend(cooldownKey)) {
@@ -428,36 +401,31 @@ public class OtpServiceImpl
                 deliverOtp(
                         buildDeliveryContext(
                                 cached.getOtp(),
-                                otpRequest
+                                otpRequest,
+                                cached.getFullName()
                         )
                 );
 
         if (!result.isSuccess()) {
 
             auditService.logSystemEvent(
-                    identifier,
+                    request.getIdentifier() ,
                     OTP_RESEND_ENDPOINT,
                     AuditEventType.OTP_RESEND_FAILED,
                     HTTP_ERROR
             );
 
-            throw new OtpException(
-                    "OTP resend failed"
-            );
+            throw new OtpException("OTP resend failed");
         }
 
-        otpRequest.setLastResendAt(
-                LocalDateTime.now()
-        );
+        otpRequest.setLastResendAt(LocalDateTime.now());
 
         markResend(cooldownKey);
 
-        repository.save(
-                otpRequest
-        );
+        repository.save(otpRequest);
 
         auditService.logSystemEvent(
-                identifier,
+                request.getIdentifier() ,
                 OTP_RESEND_ENDPOINT,
                 AuditEventType.OTP_RESENT,
                 HTTP_OK
@@ -693,6 +661,10 @@ public class OtpServiceImpl
                 OtpType.APPLICATION
         );
 
+        otpRequest.setAccountRole(
+                request.getAccountRole()
+        );
+
         otpRequest.setPurpose(
                 request.getPurpose()
         );
@@ -702,7 +674,7 @@ public class OtpServiceImpl
         );
 
         otpRequest.setDisplayName(
-                request.getDisplayName()
+                request.getFullName()
         );
 
         otpRequest.setStatus(
@@ -731,6 +703,11 @@ public class OtpServiceImpl
             OtpDeliveryContext context
     ) {
 
+        log.info(
+                "Sending OTP to {}",
+                context.getIdentifier()
+        );
+
         try {
 
             return channelDeliveryRouter.deliver(
@@ -753,7 +730,8 @@ public class OtpServiceImpl
 
     private OtpDeliveryContext buildDeliveryContext(
             String otp,
-            OtpRequest otpRequest
+            OtpRequest otpRequest,
+            String displayName
     ) {
 
         OtpTemplateContent templateContent =
@@ -762,53 +740,34 @@ public class OtpServiceImpl
                         otpRequest.getApplicationName()
                 );
 
-        Context thymeleafContext =
-                new Context();
-
-        thymeleafContext.setVariable(
-                "otp",
-                otp
+        log.info(
+                "OTP TEMPLATE purpose={} app={} subject={} template={}",
+                otpRequest.getPurpose(),
+                otpRequest.getApplicationName(),
+                templateContent.getSubject(),
+                templateContent.getTemplate()
         );
 
-        thymeleafContext.setVariable(
-                "expiryMinutes",
-                expirySeconds / 60
-        );
+        Context thymeleafContext = new Context();
+
+        thymeleafContext.setVariable("otp", otp);
+
+        thymeleafContext.setVariable("displayName", displayName);
+
+        thymeleafContext.setVariable("expiryMinutes", expirySeconds / 60);
 
         return OtpDeliveryContext.builder()
-                .identifier(
-                        otpRequest.getIdentifier()
-                )
-                .channelType(
-                        OtpChannelType.EMAIL
-                )
-                .otp(
-                        otp
-                )
-                .displayName(
-                        otpRequest.getDisplayName()
-                )
-                .applicationName(
-                        otpRequest.getApplicationName()
-                )
-                .purpose(
-                        otpRequest.getPurpose()
-                )
-                .otpType(
-                        otpRequest.getOtpType()
-                )
-                .expirySeconds(
-                        expirySeconds
-                )
-                .subject(
-                        templateContent.getSubject()
-                )
-                .template(
-                        templateContent.getTemplate()
-                )
-                .context(
-                        thymeleafContext
-                )
+                .identifier(otpRequest.getIdentifier())
+                .channelType(OtpChannelType.EMAIL)
+                .otp(otp)
+                .fullName(displayName)
+                .applicationName(otpRequest.getApplicationName())
+                .purpose(otpRequest.getPurpose())
+                .otpType(otpRequest.getOtpType())
+                .expirySeconds(expirySeconds)
+                .subject(templateContent.getSubject())
+                .template(templateContent.getTemplate())
+                .context(thymeleafContext)
                 .build();
     }
 }

@@ -4,7 +4,7 @@ import com.shivamai.otp.audit.enums.AuditEventType;
 
 public interface AuditService {
 
-    void logDeveloperEvent(
+    void logAccountEvent(
             String clientId,
             String identifier,
             String endpoint,

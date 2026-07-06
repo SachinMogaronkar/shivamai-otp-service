@@ -15,7 +15,7 @@ public class AuditServiceImpl
     private final ApiAccessLogger apiAccessLogger;
 
     @Override
-    public void logDeveloperEvent(
+    public void logAccountEvent(
             String clientId,
             String identifier,
             String endpoint,

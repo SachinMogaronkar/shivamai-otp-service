@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 @Table(
         name = "otp_requests",
         indexes = {
-
                 @Index(
                         name = "idx_otp_identifier",
                         columnList = "identifier"
@@ -54,106 +53,62 @@ import java.time.LocalDateTime;
 public class OtpRequest {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(
-            nullable = false,
-            length = 150
-    )
+    @Column(nullable = false, length = 150)
     private String identifier;
 
-    @Column(
-            name = "display_name",
-            length = 120
-    )
-    private String displayName;
-
-    @Column(
-            name = "application_name",
-            length = 120
-    )
+    @Column(name = "application_name", length = 120)
     private String applicationName;
 
+    @Column(name = "display_name")
+    private String displayName;
+
     @Enumerated(EnumType.STRING)
-    @Column(
-            nullable = false,
-            length = 50
-    )
+    @Column(nullable = false, length = 50)
     private OtpPurpose purpose;
 
     @JsonIgnore
-    @Column(
-            nullable = false,
-            length = 255
-    )
+    @Column(nullable = false, length = 255)
     private String otpHash;
 
     @Enumerated(EnumType.STRING)
-    @Column(
-            length = 30
-    )
+    @Column(length = 30)
     private OtpChannelType channel;
 
     @Enumerated(EnumType.STRING)
-    @Column(
-            nullable = false,
-            length = 40
-    )
+    @Column(nullable = false, length = 40)
     private OtpStatus status;
 
     @Enumerated(EnumType.STRING)
-    @Column(
-            nullable = false,
-            length = 40
-    )
+    @Column(nullable = false, length = 40)
     private OtpType otpType;
 
     @Enumerated(EnumType.STRING)
-    @Column(
-            length = 40
-    )
+    @Column(length = 40)
     private AccountRole accountRole;
 
     @Builder.Default
-    @Column(
-            nullable = false
-    )
-    private int attemptCount =
-            0;
+    @Column(nullable = false)
+    private int attemptCount = 0;
 
-    @Column(
-            nullable = false,
-            updatable = false,
-            name = "created_at"
-    )
+    @Column(nullable = false, updatable = false, name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(
-            nullable = false,
-            name = "expires_at"
-    )
+    @Column(nullable = false, name = "expires_at")
     private LocalDateTime expiresAt;
 
-    @Column(
-            name = "verified_at"
-    )
+    @Column(name = "verified_at")
     private LocalDateTime verifiedAt;
 
-    @Column(
-            name = "last_resend_at"
-    )
+    @Column(name = "last_resend_at")
     private LocalDateTime lastResendAt;
 
     @PrePersist
     public void prePersist() {
-
         if (createdAt == null) {
-
-            createdAt =
-                    LocalDateTime.now();
+            createdAt = LocalDateTime.now();
         }
     }
 }
